@@ -2,7 +2,8 @@
 {
     public class GetProgramDto
     {
-        public string ProgramName { get; set; } = string.Empty;
-        public string ProgramDescription { get; set; } = string.Empty;
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }
