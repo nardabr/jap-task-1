@@ -10,5 +10,6 @@ namespace jap_task.Dtos.Selection
         public DateTime EndAt { get; set; }
         public SelectionStatus Status { get; set; }
         public Models.Program Program { get; set; }
+        public List<Student> Students { get; set; }
     }
 }
