@@ -24,6 +24,11 @@ namespace jap_task.Controllers
         {
             return Ok(await _selectionService.GetAllSelections());
         }
+        [HttpGet("GetSelectionsStatus")]
+        public async Task<ActionResult<ServiceResponse<List<GetSelectionStatusDto>>>> GetAllSelectionsStatus()
+        {
+            return Ok(await _selectionService.GetAllSelectionsStatus());
+        }
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetSelectionDto>>> GetById(int id)
         {

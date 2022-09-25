@@ -16,9 +16,11 @@ namespace jap_task
             CreateMap<Comment, GetCommentDto>();
 
             CreateMap<Selection, GetSelectionDto>();
+            CreateMap<SelectionStatus, GetSelectionStatusDto>();
             CreateMap<UpdateSelectionDto, Selection>();
 
             CreateMap<Student, GetStudentDto>();
+            CreateMap<StudentStatus, GetStudentStatusDto>();
             CreateMap<AddStudentDto, Student>();
             CreateMap<UpdateStudentDto, Student>();
         }

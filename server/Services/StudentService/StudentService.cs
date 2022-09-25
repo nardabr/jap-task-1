@@ -3,6 +3,7 @@ using jap_task.Data;
 using jap_task.Dtos.Selection;
 using jap_task.Models;
 using Microsoft.EntityFrameworkCore;
+using server.Dtos.Selection;
 using server.Dtos.Student;
 
 namespace server.Services.StudentService
@@ -68,6 +69,14 @@ namespace server.Services.StudentService
                 .ToListAsync();
 
             response.Data = dbStudents.Select(s => _mapper.Map<GetStudentDto>(s)).ToList();
+            return response;
+        }
+
+        public async Task<ServiceResponse<List<GetStudentStatusDto>>> GetAllStudentStatuses()
+        {
+            var response = new ServiceResponse<List<GetStudentStatusDto>>();
+            var dbStudentStatuses = await _context.StudentStatuses.ToListAsync();
+            response.Data = dbStudentStatuses.Select(status => _mapper.Map<GetStudentStatusDto>(status)).ToList();
             return response;
         }
 

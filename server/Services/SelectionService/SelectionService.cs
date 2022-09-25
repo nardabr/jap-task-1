@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using jap_task.Data;
+using jap_task.Dtos.Program;
 using jap_task.Dtos.Selection;
 using jap_task.Models;
 using jap_task.Services.SelectionService;
@@ -30,8 +31,18 @@ namespace jap_task.Services.ProgramService
                 .Include(selection => selection.Program)
                 .ToListAsync();
 
-            //var dbStudents = await _context.Students.Where(student => student.SelectionId == selection.Id);
             response.Data = dbSelections.Select(selection => _mapper.Map<GetSelectionDto>(selection)).ToList();
+            response.Data.ForEach(async (selection) => selection.Students = await _context.Students
+                   .Where(student => student.SelectionId == selection.Id)
+                   .ToListAsync());
+            return response;
+        }
+
+        public async Task<ServiceResponse<List<GetSelectionStatusDto>>> GetAllSelectionsStatus()
+        {
+            var response = new ServiceResponse<List<GetSelectionStatusDto>>();
+            var dbSelectionStatuses = await _context.SelectionStatuses.ToListAsync();
+            response.Data = dbSelectionStatuses.Select(selection => _mapper.Map<GetSelectionStatusDto>(selection)).ToList();
             return response;
         }
 

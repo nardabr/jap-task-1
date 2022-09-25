@@ -2,6 +2,7 @@
 using jap_task.Models;
 using jap_task.Services.ProgramService;
 using Microsoft.AspNetCore.Mvc;
+using server.Dtos.Selection;
 using server.Dtos.Student;
 using server.Services.StudentService;
 
@@ -43,6 +44,12 @@ namespace server.Controllers
         public async Task<ActionResult<ServiceResponse<List<GetStudentDto>>>> Delete(int id)
         {
             return Ok(await _studentService.DeleteStudent(id));
+        }
+
+        [HttpGet("GetStudentStatuses")]
+        public async Task<ActionResult<ServiceResponse<List<GetStudentStatusDto>>>> GetAllStudentStatuses()
+        {
+            return Ok(await _studentService.GetAllStudentStatuses());
         }
     }
 }
