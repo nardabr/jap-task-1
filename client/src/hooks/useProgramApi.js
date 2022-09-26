@@ -7,21 +7,19 @@ import axios from "axios";
 import { METHODS, PATHS } from "../helpers/constants";
 import ApiError from "../components/UI/ApiError";
 
-export function useUserApi() {
+export function useProgramApi() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [error, setError] = useState("");
 
-  async function loginUser(input) {
+  async function getAllPrograms() {
     await axios({
-      method: METHODS.POST,
-      url: PATHS.LOGIN_USER,
-      data: input,
+      method: METHODS.GET,
+      url: PATHS.GET_ALL_PROGRAMS,
     })
       .then((res) => {
-        dispatch(actions.setUser(res.data.data));
-        navigate("/homepage");
+        dispatch(actions.setAllPrograms(res.data.data));
       })
       .catch((err) => setError(err.response.data.error));
   }
@@ -29,7 +27,7 @@ export function useUserApi() {
   const apiError = error && <ApiError message={error} />;
 
   return {
-    loginUser,
+    getAllPrograms,
     apiError,
   };
 }

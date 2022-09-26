@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   AppBar,
@@ -14,6 +15,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import logo from "../assets/img/elearning.png";
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMenu = (event) => {
@@ -24,9 +26,21 @@ export default function Navbar() {
     setAnchorEl(null);
   };
 
+  function allProgramsNavigate() {
+    navigate("/programs/all-programs");
+  }
+
+  function homepageNavigate() {
+    navigate("/homepage");
+  }
+
+  function allSelectionsNavigate() {
+    navigate("/selections/all");
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="fixed" sx={{ backgroundColor: "#0077b6" }}>
         <Toolbar>
           <CardMedia
             component="img"
@@ -35,18 +49,16 @@ export default function Navbar() {
             sx={styles.logo}
           />
           &emsp;
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, cursor: "pointer" }}
+            onClick={homepageNavigate}
+          >
             Jap platform
           </Typography>
           <div>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
+            <IconButton size="large" onClick={handleMenu} color="inherit">
               <AccountCircle />
             </IconButton>
             <Menu
@@ -63,9 +75,10 @@ export default function Navbar() {
               }}
               open={Boolean(anchorEl)}
               onClose={handleClose}
+              onClick={handleClose}
             >
-              <MenuItem onClick={handleClose}>All Programs</MenuItem>
-              <MenuItem onClick={handleClose}>Selections</MenuItem>
+              <MenuItem onClick={allProgramsNavigate}>All Programs</MenuItem>
+              <MenuItem onClick={allSelectionsNavigate}>Selections</MenuItem>
             </Menu>
           </div>
         </Toolbar>

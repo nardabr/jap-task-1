@@ -1,0 +1,13 @@
+.all-programs_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  padding-top: 150px;
+}
+
+.all-programs-card {
+  max-width: 345px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}

@@ -1,35 +1,31 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { actions } from "../store/store";
 import axios from "axios";
 
 import { METHODS, PATHS } from "../helpers/constants";
 import ApiError from "../components/UI/ApiError";
 
-export function useUserApi() {
+export function useCommentApi() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [error, setError] = useState("");
 
-  async function loginUser(input) {
+  async function createComment(input) {
     await axios({
       method: METHODS.POST,
-      url: PATHS.LOGIN_USER,
+      url: PATHS.ADD_COMMENT,
       data: input,
     })
-      .then((res) => {
-        dispatch(actions.setUser(res.data.data));
-        navigate("/homepage");
-      })
+      .then(() => navigate("/homepage"))
       .catch((err) => setError(err.response.data.error));
   }
 
   const apiError = error && <ApiError message={error} />;
 
   return {
-    loginUser,
+    createComment,
     apiError,
   };
 }
