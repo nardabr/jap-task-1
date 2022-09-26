@@ -5,18 +5,33 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace server.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StudentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Programs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -29,7 +44,7 @@ namespace server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -42,7 +57,7 @@ namespace server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -55,9 +70,9 @@ namespace server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -70,7 +85,7 @@ namespace server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StartAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SelectionStatusId = table.Column<int>(type: "int", nullable: false),
@@ -99,10 +114,10 @@ namespace server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StudentStatusId = table.Column<int>(type: "int", nullable: false),
-                    SelectionId = table.Column<int>(type: "int", nullable: false)
+                    SelectionId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -111,8 +126,7 @@ namespace server.Migrations
                         name: "FK_Students_Selections_SelectionId",
                         column: x => x.SelectionId,
                         principalTable: "Selections",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Students_StudentStatuses_StudentStatusId",
                         column: x => x.StudentStatusId,
@@ -154,7 +168,7 @@ namespace server.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Email", "PasswordHash", "PasswordSalt" },
-                values: new object[] { 1, "admin@mail.com", new byte[] { 108, 149, 195, 204, 12, 55, 56, 5, 59, 100, 136, 231, 49, 90, 178, 60, 230, 126, 224, 249, 11, 171, 223, 5, 46, 144, 149, 144, 213, 170, 23, 38, 104, 206, 208, 230, 203, 218, 228, 240, 238, 232, 127, 243, 50, 158, 114, 134, 134, 58, 95, 136, 3, 207, 144, 231, 207, 129, 191, 60, 195, 220, 224, 152 }, new byte[] { 118, 38, 121, 221, 13, 47, 127, 61, 124, 120, 94, 6, 4, 253, 186, 241, 204, 41, 32, 155, 217, 87, 50, 49, 253, 59, 150, 132, 181, 76, 212, 242, 115, 42, 90, 176, 58, 209, 161, 37, 84, 76, 62, 21, 42, 65, 73, 95, 152, 167, 214, 151, 229, 241, 236, 183, 46, 125, 152, 188, 99, 35, 203, 153, 81, 106, 143, 122, 109, 118, 191, 47, 165, 141, 234, 228, 37, 134, 67, 127, 241, 173, 168, 227, 87, 106, 12, 42, 117, 26, 251, 7, 52, 90, 208, 23, 64, 102, 238, 18, 147, 109, 105, 145, 164, 8, 6, 99, 15, 134, 93, 22, 2, 175, 39, 27, 60, 53, 71, 18, 172, 193, 127, 187, 53, 251, 39, 121 } });
+                values: new object[] { 1, "admin@mail.com", new byte[] { 198, 227, 92, 255, 154, 50, 54, 235, 174, 73, 241, 121, 249, 144, 234, 104, 104, 181, 221, 237, 158, 129, 241, 190, 78, 161, 46, 103, 184, 55, 56, 149, 222, 24, 246, 181, 47, 5, 16, 17, 3, 166, 47, 120, 63, 167, 48, 50, 233, 216, 148, 12, 44, 235, 246, 98, 165, 35, 193, 207, 144, 136, 222, 221 }, new byte[] { 21, 31, 56, 65, 83, 36, 148, 92, 165, 161, 163, 14, 177, 54, 92, 253, 246, 78, 70, 194, 0, 85, 49, 180, 92, 157, 253, 114, 63, 149, 35, 58, 249, 155, 41, 95, 83, 114, 155, 208, 148, 190, 232, 21, 223, 102, 77, 23, 94, 160, 193, 184, 104, 99, 136, 169, 45, 15, 170, 171, 198, 19, 236, 253, 22, 46, 40, 75, 255, 192, 68, 242, 204, 125, 40, 6, 8, 92, 121, 53, 140, 56, 93, 209, 217, 108, 209, 166, 58, 128, 54, 99, 168, 135, 43, 235, 246, 96, 208, 109, 106, 109, 226, 251, 248, 238, 79, 46, 147, 139, 75, 253, 47, 198, 244, 19, 26, 220, 206, 199, 38, 49, 253, 58, 71, 143, 48, 126 } });
 
             migrationBuilder.InsertData(
                 table: "Selections",
@@ -174,17 +188,19 @@ namespace server.Migrations
             migrationBuilder.InsertData(
                 table: "Students",
                 columns: new[] { "Id", "FirstName", "LastName", "SelectionId", "StudentStatusId" },
-                values: new object[] { 1, "Ada", "Lovelace", 1, 1 });
-
-            migrationBuilder.InsertData(
-                table: "Students",
-                columns: new[] { "Id", "FirstName", "LastName", "SelectionId", "StudentStatusId" },
-                values: new object[] { 2, "Grace", "Hopper", 2, 2 });
-
-            migrationBuilder.InsertData(
-                table: "Students",
-                columns: new[] { "Id", "FirstName", "LastName", "SelectionId", "StudentStatusId" },
-                values: new object[] { 3, "Joan", "Clarke", 3, 4 });
+                values: new object[,]
+                {
+                    { 1, "Ada", "Lovelace", 1, 1 },
+                    { 2, "Grace", "Hopper", 2, 2 },
+                    { 3, "Joan", "Clarke", 3, 4 },
+                    { 4, "Harry", "Potter", 1, 1 },
+                    { 5, "Hermione", "Granger", 2, 2 },
+                    { 6, "Ron", "Weasley", 3, 3 },
+                    { 7, "Albus", "Dumbledore", 1, 1 },
+                    { 8, "Lord", "Voldemort", 2, 3 },
+                    { 9, "Draco", "Malfoy", 3, 3 },
+                    { 10, "Sirius", "Black", 1, 4 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Selections_ProgramId",
@@ -209,6 +225,9 @@ namespace server.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Comments");
+
             migrationBuilder.DropTable(
                 name: "Students");
 

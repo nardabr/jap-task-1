@@ -39,5 +39,10 @@ namespace jap_task.Controllers
         {
             return Ok(await _selectionService.UpdateSelection(id, updateSelection));
         }
+        [HttpPatch("removeStudent")]
+        public async Task<ActionResult<ServiceResponse<GetSelectionDto>>> RemoveStudent(RemoveStudentDto removeStudent)
+        {
+            return Ok(await _selectionService.RemoveStudent(removeStudent));
+        }
     }
 }

@@ -5,6 +5,7 @@ using jap_task.Models;
 using Microsoft.EntityFrameworkCore;
 using server.Dtos.Selection;
 using server.Dtos.Student;
+using System.Collections.Generic;
 
 namespace server.Services.StudentService
 {
@@ -59,16 +60,90 @@ namespace server.Services.StudentService
             return response;
         }
         
-        public async Task<ServiceResponse<List<GetStudentDto>>> GetAllStudents()
+        public async Task<ServiceResponse<List<GetStudentDto>>> GetAllStudents(string? field, string? searchTerm, string? orderBy, int page, int size)
         {
+
             var response = new ServiceResponse<List<GetStudentDto>>();
-            var dbStudents = await _context.Students
+            var dbStudents = _context.Students
                 .Include(student => student.Status)
                 .Include(student => student.Selection)
                 .ThenInclude(student => student.Program)
-                .ToListAsync();
+                .AsQueryable();
 
-            response.Data = dbStudents.Select(s => _mapper.Map<GetStudentDto>(s)).ToList();
+            if(field is not null)
+            {
+                switch (field)
+                {
+                    case "First Name":
+                    dbStudents = dbStudents.Where(student => EF.Functions.Like(student.FirstName, $"%{searchTerm}%"));
+                        break;
+
+                    case "Last Name":
+                    dbStudents = dbStudents.Where(student => EF.Functions.Like(student.LastName, $"%{searchTerm}%"));
+                        break;
+
+                    case "Student Status":
+                    dbStudents = dbStudents.Where(student => EF.Functions.Like(student.Status.Name, $"%{searchTerm}%"));
+                        break;
+
+                    case "Program Info":
+                    dbStudents = dbStudents.Where(student => EF.Functions.Like(student.Selection.Program.Name, $"%{searchTerm}%"));
+                        break;
+
+                    case "Selections":       
+                    dbStudents = dbStudents.Where(student => EF.Functions.Like(student.Selection.Name, $"%{searchTerm}%"));
+                        break;
+                }
+            }
+
+            if (orderBy is not null)
+            {
+                switch (orderBy)
+                {
+                    case "First Name":
+                        dbStudents = dbStudents.OrderBy(student => student.FirstName);
+                        break;
+                    case "First Name desc":
+                        dbStudents = dbStudents.OrderByDescending(student => student.FirstName);
+                        break;
+
+                    case "Last Name":
+                        dbStudents = dbStudents.OrderBy(student => student.LastName);
+                        break;
+                    case "Last Name desc":
+                        dbStudents = dbStudents.OrderByDescending(student => student.LastName);
+                        break;
+
+                    case "Student Status":
+                        dbStudents = dbStudents.OrderBy(student => student.Status.Name);
+                        break;
+                    case "Student Status desc":
+                        dbStudents = dbStudents.OrderByDescending(student => student.Status.Name);
+                        break;
+
+                    case "Program Info":
+                        dbStudents = dbStudents.OrderBy(student => student.Selection.Program.Name);
+                        break;
+                    case "Program Info desc":
+                        dbStudents = dbStudents.OrderByDescending(student => student.Selection.Program.Name);
+                        break;
+
+                    case "Selections":
+                        dbStudents = dbStudents.OrderBy(student => student.Selection.Name);
+                        break;
+                    case "Selections desc":
+                        dbStudents = dbStudents.OrderByDescending(student => student.Selection.Name);
+                        break;
+                }
+            }
+
+            double numberOfStudents = dbStudents.Count();
+            double pages = Math.Ceiling(numberOfStudents / size);
+
+            dbStudents = dbStudents.Skip((page - 1) * size).Take(size);
+
+            response.Data = await dbStudents.Select(s => _mapper.Map<GetStudentDto>(s)).ToListAsync();
+            response.Message = pages.ToString();
             return response;
         }
 

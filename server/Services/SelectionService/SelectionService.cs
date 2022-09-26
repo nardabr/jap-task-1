@@ -31,10 +31,12 @@ namespace jap_task.Services.ProgramService
                 .Include(selection => selection.Program)
                 .ToListAsync();
 
+            var dbStudents = await _context.Students.ToListAsync();
+                
             response.Data = dbSelections.Select(selection => _mapper.Map<GetSelectionDto>(selection)).ToList();
-            response.Data.ForEach(async (selection) => selection.Students = await _context.Students
-                   .Where(student => student.SelectionId == selection.Id)
-                   .ToListAsync());
+            response.Data.ForEach((selection) => selection.Students = dbStudents
+                         .FindAll((student) => student.SelectionId == selection.Id));
+
             return response;
         }
 
@@ -61,6 +63,18 @@ namespace jap_task.Services.ProgramService
             return response;
         }
 
+        public async Task<ServiceResponse<GetSelectionDto>> RemoveStudent(RemoveStudentDto removeStudent)
+        {
+            var response = new ServiceResponse<GetSelectionDto>();
+
+            var student = await _context.Students
+                .FirstOrDefaultAsync(s => s.Id == removeStudent.StudentId && s.SelectionId == removeStudent.SelectionId);
+            student.SelectionId = null;
+            await _context.SaveChangesAsync();
+
+            return response;
+        }
+
         public async Task<ServiceResponse<GetSelectionDto>> UpdateSelection(int id, UpdateSelectionDto updateSelection)
         {
             ServiceResponse<GetSelectionDto> response = new ServiceResponse<GetSelectionDto>();
@@ -71,15 +85,15 @@ namespace jap_task.Services.ProgramService
                         .Include(s => s.Status)
                         .Include(s => s.Program)
                         .FirstOrDefaultAsync(s => s.Id == id)
-                        ?? throw new Exception("Selection with that id does not exist.");            
+                        ?? throw new Exception("Selection with that id does not exist.");
 
-                var program = await _context.Programs
-                        .FirstOrDefaultAsync(s => s.Id == updateSelection.ProgramId)
-                        ?? throw new Exception("Program with that id does not exist.");
-                 
-                    var status = await _context.SelectionStatuses
-                        .FirstOrDefaultAsync(s => s.Id == updateSelection.SelectionStatusId)
-                        ?? throw new Exception("Selection Status with that id does not exist.");
+                var todayDate = DateTime.Now;
+                if (todayDate >= updateSelection.StartAt && todayDate < updateSelection.EndAt)
+                {
+                    selection.SelectionStatusId = 1;
+                }
+                else selection.SelectionStatusId = 2;
+
 
                 _mapper.Map(updateSelection, selection);
                 await _context.SaveChangesAsync();

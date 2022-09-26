@@ -12,8 +12,8 @@ using jap_task.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220921131924_Initial")]
-    partial class Initial
+    [Migration("20220926105301_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,6 +24,28 @@ namespace server.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("jap_task.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("jap_task.Models.Program", b =>
                 {
                     b.Property<int>("Id")
@@ -33,11 +55,9 @@ namespace server.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -77,7 +97,6 @@ namespace server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProgramId")
@@ -136,7 +155,6 @@ namespace server.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -165,14 +183,12 @@ namespace server.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SelectionId")
+                    b.Property<int?>("SelectionId")
                         .HasColumnType("int");
 
                     b.Property<int>("StudentStatusId")
@@ -210,6 +226,62 @@ namespace server.Migrations
                             LastName = "Clarke",
                             SelectionId = 3,
                             StudentStatusId = 4
+                        },
+                        new
+                        {
+                            Id = 4,
+                            FirstName = "Harry",
+                            LastName = "Potter",
+                            SelectionId = 1,
+                            StudentStatusId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            FirstName = "Hermione",
+                            LastName = "Granger",
+                            SelectionId = 2,
+                            StudentStatusId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            FirstName = "Ron",
+                            LastName = "Weasley",
+                            SelectionId = 3,
+                            StudentStatusId = 3
+                        },
+                        new
+                        {
+                            Id = 7,
+                            FirstName = "Albus",
+                            LastName = "Dumbledore",
+                            SelectionId = 1,
+                            StudentStatusId = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            FirstName = "Lord",
+                            LastName = "Voldemort",
+                            SelectionId = 2,
+                            StudentStatusId = 3
+                        },
+                        new
+                        {
+                            Id = 9,
+                            FirstName = "Draco",
+                            LastName = "Malfoy",
+                            SelectionId = 3,
+                            StudentStatusId = 3
+                        },
+                        new
+                        {
+                            Id = 10,
+                            FirstName = "Sirius",
+                            LastName = "Black",
+                            SelectionId = 1,
+                            StudentStatusId = 4
                         });
                 });
 
@@ -222,7 +294,6 @@ namespace server.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -261,15 +332,12 @@ namespace server.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("PasswordHash")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<byte[]>("PasswordSalt")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");
@@ -281,8 +349,8 @@ namespace server.Migrations
                         {
                             Id = 1,
                             Email = "admin@mail.com",
-                            PasswordHash = new byte[] { 108, 149, 195, 204, 12, 55, 56, 5, 59, 100, 136, 231, 49, 90, 178, 60, 230, 126, 224, 249, 11, 171, 223, 5, 46, 144, 149, 144, 213, 170, 23, 38, 104, 206, 208, 230, 203, 218, 228, 240, 238, 232, 127, 243, 50, 158, 114, 134, 134, 58, 95, 136, 3, 207, 144, 231, 207, 129, 191, 60, 195, 220, 224, 152 },
-                            PasswordSalt = new byte[] { 118, 38, 121, 221, 13, 47, 127, 61, 124, 120, 94, 6, 4, 253, 186, 241, 204, 41, 32, 155, 217, 87, 50, 49, 253, 59, 150, 132, 181, 76, 212, 242, 115, 42, 90, 176, 58, 209, 161, 37, 84, 76, 62, 21, 42, 65, 73, 95, 152, 167, 214, 151, 229, 241, 236, 183, 46, 125, 152, 188, 99, 35, 203, 153, 81, 106, 143, 122, 109, 118, 191, 47, 165, 141, 234, 228, 37, 134, 67, 127, 241, 173, 168, 227, 87, 106, 12, 42, 117, 26, 251, 7, 52, 90, 208, 23, 64, 102, 238, 18, 147, 109, 105, 145, 164, 8, 6, 99, 15, 134, 93, 22, 2, 175, 39, 27, 60, 53, 71, 18, 172, 193, 127, 187, 53, 251, 39, 121 }
+                            PasswordHash = new byte[] { 198, 227, 92, 255, 154, 50, 54, 235, 174, 73, 241, 121, 249, 144, 234, 104, 104, 181, 221, 237, 158, 129, 241, 190, 78, 161, 46, 103, 184, 55, 56, 149, 222, 24, 246, 181, 47, 5, 16, 17, 3, 166, 47, 120, 63, 167, 48, 50, 233, 216, 148, 12, 44, 235, 246, 98, 165, 35, 193, 207, 144, 136, 222, 221 },
+                            PasswordSalt = new byte[] { 21, 31, 56, 65, 83, 36, 148, 92, 165, 161, 163, 14, 177, 54, 92, 253, 246, 78, 70, 194, 0, 85, 49, 180, 92, 157, 253, 114, 63, 149, 35, 58, 249, 155, 41, 95, 83, 114, 155, 208, 148, 190, 232, 21, 223, 102, 77, 23, 94, 160, 193, 184, 104, 99, 136, 169, 45, 15, 170, 171, 198, 19, 236, 253, 22, 46, 40, 75, 255, 192, 68, 242, 204, 125, 40, 6, 8, 92, 121, 53, 140, 56, 93, 209, 217, 108, 209, 166, 58, 128, 54, 99, 168, 135, 43, 235, 246, 96, 208, 109, 106, 109, 226, 251, 248, 238, 79, 46, 147, 139, 75, 253, 47, 198, 244, 19, 26, 220, 206, 199, 38, 49, 253, 58, 71, 143, 48, 126 }
                         });
                 });
 
@@ -309,9 +377,7 @@ namespace server.Migrations
                 {
                     b.HasOne("jap_task.Models.Selection", "Selection")
                         .WithMany()
-                        .HasForeignKey("SelectionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SelectionId");
 
                     b.HasOne("jap_task.Models.StudentStatus", "Status")
                         .WithMany()

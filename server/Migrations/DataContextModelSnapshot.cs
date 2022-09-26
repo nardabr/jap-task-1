@@ -41,8 +41,6 @@ namespace server.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StudentId");
-
                     b.ToTable("Comments");
                 });
 
@@ -188,7 +186,7 @@ namespace server.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SelectionId")
+                    b.Property<int?>("SelectionId")
                         .HasColumnType("int");
 
                     b.Property<int>("StudentStatusId")
@@ -225,6 +223,62 @@ namespace server.Migrations
                             FirstName = "Joan",
                             LastName = "Clarke",
                             SelectionId = 3,
+                            StudentStatusId = 4
+                        },
+                        new
+                        {
+                            Id = 4,
+                            FirstName = "Harry",
+                            LastName = "Potter",
+                            SelectionId = 1,
+                            StudentStatusId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            FirstName = "Hermione",
+                            LastName = "Granger",
+                            SelectionId = 2,
+                            StudentStatusId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            FirstName = "Ron",
+                            LastName = "Weasley",
+                            SelectionId = 3,
+                            StudentStatusId = 3
+                        },
+                        new
+                        {
+                            Id = 7,
+                            FirstName = "Albus",
+                            LastName = "Dumbledore",
+                            SelectionId = 1,
+                            StudentStatusId = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            FirstName = "Lord",
+                            LastName = "Voldemort",
+                            SelectionId = 2,
+                            StudentStatusId = 3
+                        },
+                        new
+                        {
+                            Id = 9,
+                            FirstName = "Draco",
+                            LastName = "Malfoy",
+                            SelectionId = 3,
+                            StudentStatusId = 3
+                        },
+                        new
+                        {
+                            Id = 10,
+                            FirstName = "Sirius",
+                            LastName = "Black",
+                            SelectionId = 1,
                             StudentStatusId = 4
                         });
                 });
@@ -293,18 +347,9 @@ namespace server.Migrations
                         {
                             Id = 1,
                             Email = "admin@mail.com",
-                            PasswordHash = new byte[] { 190, 241, 147, 89, 50, 236, 222, 200, 162, 18, 27, 212, 182, 242, 32, 1, 42, 105, 68, 222, 158, 38, 78, 133, 175, 214, 247, 80, 146, 157, 226, 106, 191, 92, 90, 119, 198, 173, 170, 164, 140, 34, 130, 207, 75, 220, 80, 238, 11, 205, 52, 60, 212, 94, 131, 211, 232, 174, 254, 127, 74, 234, 186, 179 },
-                            PasswordSalt = new byte[] { 106, 42, 83, 87, 13, 176, 199, 28, 196, 170, 58, 56, 115, 30, 215, 143, 77, 252, 213, 22, 247, 60, 3, 214, 52, 179, 108, 225, 21, 179, 45, 252, 116, 219, 245, 134, 202, 95, 81, 183, 83, 91, 152, 249, 22, 139, 60, 75, 186, 139, 60, 220, 165, 198, 33, 51, 74, 13, 19, 242, 140, 123, 32, 187, 215, 18, 252, 251, 234, 159, 0, 219, 105, 215, 28, 224, 234, 55, 98, 193, 158, 103, 225, 41, 207, 20, 215, 39, 133, 138, 210, 235, 143, 181, 240, 0, 2, 88, 79, 39, 150, 128, 10, 25, 138, 239, 85, 100, 214, 154, 45, 181, 185, 39, 119, 138, 175, 251, 181, 172, 248, 198, 168, 174, 181, 93, 82, 46 }
+                            PasswordHash = new byte[] { 198, 227, 92, 255, 154, 50, 54, 235, 174, 73, 241, 121, 249, 144, 234, 104, 104, 181, 221, 237, 158, 129, 241, 190, 78, 161, 46, 103, 184, 55, 56, 149, 222, 24, 246, 181, 47, 5, 16, 17, 3, 166, 47, 120, 63, 167, 48, 50, 233, 216, 148, 12, 44, 235, 246, 98, 165, 35, 193, 207, 144, 136, 222, 221 },
+                            PasswordSalt = new byte[] { 21, 31, 56, 65, 83, 36, 148, 92, 165, 161, 163, 14, 177, 54, 92, 253, 246, 78, 70, 194, 0, 85, 49, 180, 92, 157, 253, 114, 63, 149, 35, 58, 249, 155, 41, 95, 83, 114, 155, 208, 148, 190, 232, 21, 223, 102, 77, 23, 94, 160, 193, 184, 104, 99, 136, 169, 45, 15, 170, 171, 198, 19, 236, 253, 22, 46, 40, 75, 255, 192, 68, 242, 204, 125, 40, 6, 8, 92, 121, 53, 140, 56, 93, 209, 217, 108, 209, 166, 58, 128, 54, 99, 168, 135, 43, 235, 246, 96, 208, 109, 106, 109, 226, 251, 248, 238, 79, 46, 147, 139, 75, 253, 47, 198, 244, 19, 26, 220, 206, 199, 38, 49, 253, 58, 71, 143, 48, 126 }
                         });
-                });
-
-            modelBuilder.Entity("jap_task.Models.Comment", b =>
-                {
-                    b.HasOne("jap_task.Models.Student", null)
-                        .WithMany("Comments")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("jap_task.Models.Selection", b =>
@@ -330,9 +375,7 @@ namespace server.Migrations
                 {
                     b.HasOne("jap_task.Models.Selection", "Selection")
                         .WithMany()
-                        .HasForeignKey("SelectionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SelectionId");
 
                     b.HasOne("jap_task.Models.StudentStatus", "Status")
                         .WithMany()
@@ -343,11 +386,6 @@ namespace server.Migrations
                     b.Navigation("Selection");
 
                     b.Navigation("Status");
-                });
-
-            modelBuilder.Entity("jap_task.Models.Student", b =>
-                {
-                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

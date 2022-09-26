@@ -21,9 +21,9 @@ namespace server.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetStudentDto>>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<GetStudentDto>>>> Get(string? field, string? searchTerm, string? orderBy, int page, int size)
         {
-            return Ok(await _studentService.GetAllStudents());
+            return Ok(await _studentService.GetAllStudents(field, searchTerm, orderBy, page, size));
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetStudentDto>>> GetById(int id)

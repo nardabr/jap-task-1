@@ -6,7 +6,7 @@ namespace server.Services.StudentService
 {
     public interface IStudentService
     {
-        Task<ServiceResponse<List<GetStudentDto>>> GetAllStudents();
+        Task<ServiceResponse<List<GetStudentDto>>> GetAllStudents(string? field, string? searchTerm, string? orderBy, int page, int size);
         Task<ServiceResponse<List<GetStudentStatusDto>>> GetAllStudentStatuses();
         Task<ServiceResponse<GetStudentDto>> GetStudentById(int id);
         Task<ServiceResponse<GetStudentDto>> UpdateStudent(int id, UpdateStudentDto updateStudent);

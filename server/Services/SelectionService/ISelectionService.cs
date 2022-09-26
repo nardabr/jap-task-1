@@ -10,5 +10,6 @@ namespace jap_task.Services.SelectionService
         Task<ServiceResponse<GetSelectionDto>> GetSelectionById(int id);
         Task<ServiceResponse<GetSelectionDto>> UpdateSelection(int id, UpdateSelectionDto updateSelection);
         Task<ServiceResponse<List<GetSelectionStatusDto>>> GetAllSelectionsStatus();
+        Task<ServiceResponse<GetSelectionDto>> RemoveStudent(RemoveStudentDto removeStudent);
     }
 }

@@ -3,7 +3,7 @@
     public class Selection
     {
         public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; }
         public DateTime StartAt { get; set; }
         public DateTime EndAt { get; set; }
         public int SelectionStatusId { get; set; }
