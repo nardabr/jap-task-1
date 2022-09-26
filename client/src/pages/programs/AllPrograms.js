@@ -7,7 +7,7 @@ import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
 import "../../assets/css/allPrograms.css";
 
 export default function AllPrograms() {
-  const { getAllPrograms, apiError } = useProgramApi();
+  const { getAllPrograms } = useProgramApi();
   const allPrograms = useSelector((s) => s.store.allPrograms);
 
   function getAllProgramsHandler() {
@@ -16,7 +16,7 @@ export default function AllPrograms() {
 
   useEffect(() => {
     getAllProgramsHandler();
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <div className="all-programs_container">

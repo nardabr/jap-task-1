@@ -12,7 +12,7 @@ import InputField from "../components/UI/InputField";
 export default function AddComment() {
   const { getStudent } = useStudentApi();
   const { createComment } = useCommentApi();
-  const [input, error, onChange, lengthValidation, setInput] = useFormFields({
+  const [input, error, onChange, lengthValidation] = useFormFields({
     text: "",
   });
   const params = useParams();
@@ -21,7 +21,7 @@ export default function AddComment() {
 
   useEffect(() => {
     getStudent(studentId);
-  }, [studentId]);
+  }, [studentId]); // eslint-disable-line
 
   function addCommentHandler() {
     createComment({

@@ -27,7 +27,7 @@ export default function EditStudent() {
     getStudent(studentId);
     getSelections();
     getStudentStatuses();
-  }, [studentId]);
+  }, [studentId]); // eslint-disable-line
 
   function editStudentHandler() {
     editStudent(studentId, {
@@ -39,7 +39,7 @@ export default function EditStudent() {
   }
 
   useEffect(() => {
-    if (student.id == studentId) {
+    if (student.id == studentId) { // eslint-disable-line
       setInput({
         firstName: student.firstName,
         lastName: student.lastName,
@@ -48,7 +48,7 @@ export default function EditStudent() {
         comments: [...student.comments],
       });
     }
-  }, [student, studentId]);
+  }, [student, studentId]); // eslint-disable-line
 
   // if (!input.selectionId) return null;
   return (

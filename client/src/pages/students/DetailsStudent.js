@@ -8,7 +8,7 @@ import CardWrapper from "../../components/UI/CardWrapper";
 import StudentForm from "../../components/UI/StudentForm";
 
 export default function DetailsStudent() {
-  const { getStudent, apiError } = useStudentApi();
+  const { getStudent } = useStudentApi();
   const [input, error, onChange, lengthValidation, setInput] = useFormFields({
     firstName: "",
     lastName: "",
@@ -24,10 +24,10 @@ export default function DetailsStudent() {
 
   useEffect(() => {
     getStudent(studentId);
-  }, [studentId]);
+  }, [studentId]); // eslint-disable-line
 
   useEffect(() => {
-    if (student.id == studentId) {
+    if (student.id == studentId) {  // eslint-disable-line
       setInput({
         firstName: student.firstName,
         lastName: student.lastName,
@@ -37,7 +37,7 @@ export default function DetailsStudent() {
         comments: [...student.comments],
       });
     }
-  }, [student, studentId]);
+  }, [student, studentId]); // eslint-disable-line
 
   if (!input.firstName) return null;
   return (

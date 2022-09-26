@@ -1,18 +1,15 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useState } from "react";
 
 import {
   Table,
   TableBody,
-  TableCell,
   TableContainer,
   TableHead,
   TableRow,
   Paper,
   Button,
   TableFooter,
-  TablePagination,
 } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";

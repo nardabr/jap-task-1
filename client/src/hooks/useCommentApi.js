@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import axios from "axios";
 
 import { METHODS, PATHS } from "../helpers/constants";
@@ -8,7 +7,6 @@ import ApiError from "../components/UI/ApiError";
 
 export function useCommentApi() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [error, setError] = useState("");
 

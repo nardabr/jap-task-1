@@ -7,7 +7,7 @@ import ModalDelete from "../../components/ModalDelete";
 import StudentsTable from "../../components/StudentsTable";
 
 export default function Homepage() {
-  const { getStudents, deleteStudent, apiError } = useStudentApi();
+  const { getStudents, deleteStudent } = useStudentApi();
   const [open, setOpen] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [page, setPage] = useState(1);
@@ -50,7 +50,7 @@ export default function Homepage() {
   useEffect(() => {
     getStudents(page, pageSize);
     console.clear();
-  }, [page]);
+  }, [page]); // eslint-disable-line
 
   function deleteStudentHandler() {
     deleteStudent(deleteModal);

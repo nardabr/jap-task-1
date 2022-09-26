@@ -11,7 +11,7 @@ export default function Login() {
     email: "",
     password: "",
   });
-  const { loginUser, apiError } = useUserApi();
+  const { loginUser } = useUserApi();
 
   function onLoginHandler() {
     loginUser(input);

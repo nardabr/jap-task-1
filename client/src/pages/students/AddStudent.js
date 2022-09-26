@@ -10,18 +10,18 @@ import StudentForm from "../../components/UI/StudentForm";
 export default function AddStudent() {
   const { getStudentStatuses, addNewStudent } = useStudentApi();
   const { getSelections } = useSelectionApi();
-  const [input, error, onChange, lengthValidation, setInput] = useFormFields({
+  const [input, error, onChange, lengthValidation] = useFormFields({
     firstName: "",
     lastName: "",
     statusId: "",
     selectionId: "",
   });
   const studentStatuses = useSelector((s) => s.store.studentStatuses);
-  
+
   useEffect(() => {
     getSelections();
     getStudentStatuses();
-  }, []);
+  }, []); // eslint-disable-line
 
   function addStudentHandler() {
     addNewStudent({

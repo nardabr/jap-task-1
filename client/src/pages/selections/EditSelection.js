@@ -22,7 +22,7 @@ export default function EditSelection() {
 
   useEffect(() => {
     getSelection(selectionId);
-  }, [selectionId]);
+  }, [selectionId]); // eslint-disable-line
 
   function editSelectionHandler() {
     editSelection(selectionId, {
@@ -41,13 +41,13 @@ export default function EditSelection() {
   }
 
   useEffect(() => {
-    if (selection.id == selectionId) {
+    if (selection.id == selectionId) { // eslint-disable-line
       setInput({
         startAt: moment(selection.startAt).format("YYYY-MM-DD"),
         endAt: moment(selection.endAt).format("YYYY-MM-DD"),
       });
     }
-  }, [selection, selectionId]);
+  }, [selection, selectionId]); // eslint-disable-line
 
   return (
     <CardWrapper title="Edit Selection">
