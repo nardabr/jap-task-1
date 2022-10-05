@@ -10,7 +10,7 @@ namespace server.Controllers
 {
     //[Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/student")]
     public class StudentControllers : ControllerBase
     {
         private readonly IStudentService _studentService;
@@ -21,33 +21,33 @@ namespace server.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetStudentDto>>>> Get(string? field, string? searchTerm, string? orderBy, int page, int size)
+        public async Task<IActionResult> GetAll(string? field, string? searchTerm, string? orderBy, int page, int size)
         {
-            return Ok(await _studentService.GetAllStudents(field, searchTerm, orderBy, page, size));
+            return Ok(await _studentService.GetAll(field, searchTerm, orderBy, page, size));
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<GetStudentDto>>> GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await _studentService.GetStudentById(id));
+            return Ok(await _studentService.GetById(id));
         }
         [HttpPatch("{id}")]
-        public async Task<ActionResult<ServiceResponse<GetStudentDto>>> Update(int id, UpdateStudentDto updateStudent)
+        public async Task<IActionResult> Update(int id, UpdateStudentDto updateStudent)
         {
-            return Ok(await _studentService.UpdateStudent(id, updateStudent));
+            return Ok(await _studentService.Update(id, updateStudent));
         }
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<GetStudentDto>>> CreateStudent(AddStudentDto addStudent)
+        public async Task<IActionResult> Create(AddStudentDto addStudent)
         {
-            return Ok(await _studentService.CreateStudent(addStudent));
+            return Ok(await _studentService.Create(addStudent));
         }
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ServiceResponse<List<GetStudentDto>>>> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            return Ok(await _studentService.DeleteStudent(id));
+            return Ok(await _studentService.Delete(id));
         }
 
         [HttpGet("GetStudentStatuses")]
-        public async Task<ActionResult<ServiceResponse<List<GetStudentStatusDto>>>> GetAllStudentStatuses()
+        public async Task<IActionResult> GetAllStudentStatuses()
         {
             return Ok(await _studentService.GetAllStudentStatuses());
         }

@@ -1,12 +1,9 @@
 using jap_task.Data;
-using jap_task.Services.ProgramService;
-using jap_task.Services.SelectionService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using server.Services.CommentService;
-using server.Services.StudentService;
+using server.Extensions;
 using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,12 +25,8 @@ builder.Services.AddSwaggerGen(c =>
     });
     c.OperationFilter<SecurityRequirementsOperationFilter>();
 });
-builder.Services.AddAutoMapper(typeof(Program).Assembly);
-builder.Services.AddTransient<ISelectionService, SelectionService>();
-builder.Services.AddScoped<IProgramService, ProgramService>();
-builder.Services.AddScoped<IStudentService, StudentService>();
-builder.Services.AddScoped<ICommentService, CommentService>();
-builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AutomapperProfiles();
+builder.Services.Services();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
    .AddJwtBearer(options =>
    {

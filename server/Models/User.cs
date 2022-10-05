@@ -1,4 +1,6 @@
-﻿namespace jap_task.Models
+﻿using server.Models;
+
+namespace jap_task.Models
 {
     public class User
     {
@@ -6,5 +8,6 @@
         public string Email { get; set; } = string.Empty;
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
+        public UserStatus Status { get; set; } = UserStatus.Active;
     }
 }

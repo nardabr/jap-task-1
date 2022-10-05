@@ -17,12 +17,14 @@ namespace jap_task.Services.ProgramService
             _context = context;
         }
 
-        public async Task<ServiceResponse<List<GetProgramDto>>> GetAllPrograms()
+        public async Task<ServiceResponse<List<GetProgramDto>>> GetAll()
         {
-            var response = new ServiceResponse<List<GetProgramDto>>();
-            var dbPrograms = await _context.Programs.ToListAsync();
-            response.Data = dbPrograms.Select(program => _mapper.Map<GetProgramDto>(program)).ToList();
-            return response;
+            return new ServiceResponse<List<GetProgramDto>>
+            {
+                Data = await _context.Programs
+                   .Select(program => _mapper.Map<GetProgramDto>(program))
+                   .ToListAsync()  
+            };
         }
     }
 }

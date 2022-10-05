@@ -8,7 +8,7 @@ namespace jap_task.Controllers
 {
     //[Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/program")]
     public class ProgramControllers : ControllerBase
     {
         private readonly IProgramService _programService;
@@ -18,9 +18,9 @@ namespace jap_task.Controllers
             _programService = programService;
         }
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetProgramDto>>>> Get()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(await _programService.GetAllPrograms());
+            return Ok(await _programService.GetAll());
         }
     }
 }

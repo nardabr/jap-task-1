@@ -20,7 +20,7 @@ namespace server.Services.StudentService
             _mapper = mapper;
         }
 
-        public async Task<ServiceResponse<GetStudentDto>> CreateStudent(AddStudentDto addStudent)
+        public async Task<ServiceResponse<GetStudentDto>> Create(AddStudentDto addStudent)
         {
             var selection = await _context.Selections
                 .FirstOrDefaultAsync(s => s.Id == addStudent.SelectionId);
@@ -30,17 +30,16 @@ namespace server.Services.StudentService
 
             _context.Students.Add(student);
             await _context.SaveChangesAsync();
-
-            var serviceResponse = new ServiceResponse<GetStudentDto>();
-            serviceResponse.Success = true;
-            serviceResponse.Message = "Student is created successfuly.";
-            return serviceResponse;
+            
+            return new ServiceResponse<GetStudentDto>
+            {
+                Success = true,
+                Message = "Student is created successfuly."
+            };
         }
 
-        public async Task<ServiceResponse<List<GetStudentDto>>> DeleteStudent(int id)
+        public async Task<ServiceResponse<List<GetStudentDto>>> Delete(int id)
         {
-            var response = new ServiceResponse<List<GetStudentDto>>();
-
             var student = await _context.Students
                 .FirstOrDefaultAsync(s => s.Id == id)
                 ?? throw new Exception("Student with that id does not exist.");
@@ -54,13 +53,15 @@ namespace server.Services.StudentService
                 .ThenInclude(student => student.Program)
                 .ToListAsync();
 
-            response.Data = dbStudents.Select(s => _mapper.Map<GetStudentDto>(s)).ToList();
-            response.Success = true;
-            response.Message = "Student is deleted successfuly.";
-            return response;
+            return new ServiceResponse<List<GetStudentDto>>
+            {
+                Data = dbStudents.Select(s => _mapper.Map<GetStudentDto>(s)).ToList(),
+                Success = true,
+                Message = "Student is deleted successfuly."
+            };
         }
         
-        public async Task<ServiceResponse<List<GetStudentDto>>> GetAllStudents(string? field, string? searchTerm, string? orderBy, int page, int size)
+        public async Task<ServiceResponse<List<GetStudentDto>>> GetAll(string? field, string? searchTerm, string? orderBy, int page, int size)
         {
 
             var response = new ServiceResponse<List<GetStudentDto>>();
@@ -149,13 +150,15 @@ namespace server.Services.StudentService
 
         public async Task<ServiceResponse<List<GetStudentStatusDto>>> GetAllStudentStatuses()
         {
-            var response = new ServiceResponse<List<GetStudentStatusDto>>();
-            var dbStudentStatuses = await _context.StudentStatuses.ToListAsync();
-            response.Data = dbStudentStatuses.Select(status => _mapper.Map<GetStudentStatusDto>(status)).ToList();
-            return response;
+            return new ServiceResponse<List<GetStudentStatusDto>>
+            {
+                Data = await _context.StudentStatuses
+                   .Select(status => _mapper.Map<GetStudentStatusDto>(status))
+                   .ToListAsync()
+            };
         }
 
-        public async Task<ServiceResponse<GetStudentDto>> GetStudentById(int id)
+        public async Task<ServiceResponse<GetStudentDto>> GetById(int id)
         {
             var response = new ServiceResponse<GetStudentDto>();
             try
@@ -182,7 +185,7 @@ namespace server.Services.StudentService
             return response;
         }
 
-        public async Task<ServiceResponse<GetStudentDto>> UpdateStudent(int id, UpdateStudentDto updateStudent)
+        public async Task<ServiceResponse<GetStudentDto>> Update(int id, UpdateStudentDto updateStudent)
         {
             ServiceResponse<GetStudentDto> response = new ServiceResponse<GetStudentDto>();
             

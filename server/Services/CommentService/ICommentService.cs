@@ -5,6 +5,6 @@ namespace server.Services.CommentService
 {
     public interface ICommentService
     {
-        Task<ServiceResponse<GetCommentDto>> CreateComment(CreateCommentDto createComment);
+        Task<ServiceResponse<GetCommentDto>> Create(CreateCommentDto createComment);
     }
 }

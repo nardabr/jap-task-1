@@ -1,4 +1,7 @@
-﻿namespace jap_task.Dtos.Program
+﻿using jap_task.Dtos.Selection;
+using server.Dtos.Selection;
+
+namespace jap_task.Dtos.Program
 {
     public class GetProgramDto
     {

@@ -8,7 +8,7 @@ namespace server.Controllers
 {
     //[Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/comment")]
     public class CommentController : ControllerBase
     {
         private readonly ICommentService _commentService;
@@ -19,9 +19,9 @@ namespace server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<GetCommentDto>>> CreateComment(CreateCommentDto createComment)
+        public async Task<IActionResult> Create(CreateCommentDto createComment)
         {
-            return Ok(await _commentService.CreateComment(createComment));
+            return Ok(await _commentService.Create(createComment));
         }
     }
 }

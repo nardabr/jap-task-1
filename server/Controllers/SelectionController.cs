@@ -10,7 +10,7 @@ namespace jap_task.Controllers
 {
     //[Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/selection")]
     public class SelectionControllers : ControllerBase
     {
         private readonly ISelectionService _selectionService;
@@ -20,29 +20,29 @@ namespace jap_task.Controllers
             _selectionService = selectionService;
         }
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetSelectionDto>>>> Get()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(await _selectionService.GetAllSelections());
+            return Ok(await _selectionService.GetAll());
         }
-        [HttpGet("GetSelectionsStatus")]
-        public async Task<ActionResult<ServiceResponse<List<GetSelectionStatusDto>>>> GetAllSelectionsStatus()
+        [HttpGet("GetSelectionsStatuses")]
+        public async Task<IActionResult> GetAllSelectionsStatuses()
         {
-            return Ok(await _selectionService.GetAllSelectionsStatus());
+            return Ok(await _selectionService.GetAllSelectionsStatuses());
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<GetSelectionDto>>> GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await _selectionService.GetSelectionById(id));
+            return Ok(await _selectionService.GetById(id));
         }
         [HttpPatch("{id}")]
-        public async Task<ActionResult<ServiceResponse<GetSelectionDto>>> Update(int id, UpdateSelectionDto updateSelection)
+        public async Task<IActionResult> Update(int id, UpdateSelectionDto updateSelection)
         {
-            return Ok(await _selectionService.UpdateSelection(id, updateSelection));
+            return Ok(await _selectionService.Update(id, updateSelection));
         }
         [HttpPatch("removeStudent")]
-        public async Task<ActionResult<ServiceResponse<GetSelectionDto>>> RemoveStudent(RemoveStudentDto removeStudent)
+        public async Task<IActionResult> Remove(RemoveStudentDto removeStudent)
         {
-            return Ok(await _selectionService.RemoveStudent(removeStudent));
+            return Ok(await _selectionService.Remove(removeStudent));
         }
     }
 }

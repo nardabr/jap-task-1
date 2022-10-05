@@ -1,6 +1,7 @@
 ﻿using jap_task.Models;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.EntityFrameworkCore;
+using server.Data.Seeders;
 using System.Security.Cryptography;
 
 namespace jap_task.Data
@@ -19,42 +20,15 @@ namespace jap_task.Data
                 CreateAdmin(1, "admin@mail.com", "admin1234")
             );
 
-            modelBuilder.Entity<Models.Program>().HasData(
-                new Models.Program { Id = 1, Name = "JAP Dev", Description = "Dev JAP is a 9-week program designed to prepare you for a full-time client engagement where you would work as a Junior Software Developer within existing Mistral teams. The program is designed to fit your pace and will be completely personalized according to your current capabilities. You can complete the program even sooner than 9 weeks if you work hard! Everything is up to you." },
-                new Models.Program { Id = 2, Name = "JAP QA", Description = "QA JAP is a 5-week program designed to prepare you for a full-time client engagement where you would work as a Junior Quality Assurance engineer within existing Mistral teams. The program is designed to fit your pace and will be completely personalized according to your current capabilities. If you work hard, you can complete the program even sooner than 5 weeks! Everything is up to you." },
-                new Models.Program { Id = 3, Name = "JAP DevOps", Description = "DevOps JAP is a 13-week program designed to prepare you for a full-time client engagement where you would work as a Junior DevOps engineer within existing Mistral teams. The program is designed to fit your pace and will be completely personalized according to your current capabilities. You can complete the program even sooner than 13 weeks if you work hard! Everything is up to you." }
-                );
+            modelBuilder.SeedPrograms();
 
-            modelBuilder.Entity<SelectionStatus>().HasData(
-                new SelectionStatus { Id = 1, Name = "Active" },
-                new SelectionStatus { Id = 2, Name = "Complete" }
-                );
+            modelBuilder.SeedSelectionStatuses();
 
-            modelBuilder.Entity<Selection>().HasData(
-                new Selection { Id = 1, Name = "JAP Dev 09/2022", StartAt = new DateTime(2022, 09, 05), EndAt = new DateTime(2022, 11, 20), SelectionStatusId = 1, ProgramId = 1 },
-                new Selection { Id = 2, Name = "JAP QA 08/2022", StartAt = new DateTime(2022, 08, 08), EndAt = new DateTime(2022, 09, 12), SelectionStatusId = 1, ProgramId = 2 },
-                new Selection { Id = 3, Name = "JAP DevOps 09/2022", StartAt = new DateTime(2022, 09, 05), EndAt = new DateTime(2022, 12, 04), SelectionStatusId = 1, ProgramId = 3 }
-                );
+            modelBuilder.SeedSelections();
 
-            modelBuilder.Entity<StudentStatus>().HasData(
-                new StudentStatus { Id = 1, Name = "In Program" },
-                new StudentStatus { Id = 2, Name = "Success" },
-                new StudentStatus { Id = 3, Name = "Failed" },
-                new StudentStatus { Id = 4, Name = "Extended" }
-                );
+            modelBuilder.SeedStudentStatuses();
 
-            modelBuilder.Entity<Student>().HasData(
-                new Student { Id = 1, FirstName = "Ada", LastName = "Lovelace", StudentStatusId = 1, SelectionId = 1 },
-                new Student { Id = 2, FirstName = "Grace", LastName = "Hopper", StudentStatusId = 2, SelectionId = 2 },
-                new Student { Id = 3, FirstName = "Joan", LastName = "Clarke", StudentStatusId = 4, SelectionId = 3 },
-                new Student { Id = 4, FirstName = "Harry", LastName = "Potter", StudentStatusId = 1, SelectionId = 1 },
-                new Student { Id = 5, FirstName = "Hermione", LastName = "Granger", StudentStatusId = 2, SelectionId = 2 },
-                new Student { Id = 6, FirstName = "Ron", LastName = "Weasley", StudentStatusId = 3, SelectionId = 3 },
-                new Student { Id = 7, FirstName = "Albus", LastName = "Dumbledore", StudentStatusId = 1, SelectionId = 1 },
-                new Student { Id = 8, FirstName = "Lord", LastName = "Voldemort", StudentStatusId = 3, SelectionId = 2},
-                new Student { Id = 9, FirstName = "Draco", LastName = "Malfoy", StudentStatusId = 3, SelectionId = 3 },
-                new Student { Id = 10, FirstName = "Sirius", LastName = "Black", StudentStatusId = 4, SelectionId = 1 }
-                );
+            modelBuilder.SeedStudents();
         }
 
         public static User CreateAdmin(int id, string email, string password)

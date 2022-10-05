@@ -5,6 +5,6 @@ namespace jap_task.Services.ProgramService
 {
     public interface IProgramService
     {
-        Task<ServiceResponse<List<GetProgramDto>>> GetAllPrograms();
+        Task<ServiceResponse<List<GetProgramDto>>> GetAll();
     }
 }

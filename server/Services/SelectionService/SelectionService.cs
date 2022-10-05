@@ -23,7 +23,7 @@ namespace jap_task.Services.ProgramService
             _context = context;
         }
 
-        public async Task<ServiceResponse<List<GetSelectionDto>>> GetAllSelections()
+        public async Task<ServiceResponse<List<GetSelectionDto>>> GetAll()
         {
             var response = new ServiceResponse<List<GetSelectionDto>>();
             var dbSelections = await _context.Selections
@@ -40,15 +40,17 @@ namespace jap_task.Services.ProgramService
             return response;
         }
 
-        public async Task<ServiceResponse<List<GetSelectionStatusDto>>> GetAllSelectionsStatus()
+        public async Task<ServiceResponse<List<GetSelectionStatusDto>>> GetAllSelectionsStatuses()
         {
-            var response = new ServiceResponse<List<GetSelectionStatusDto>>();
-            var dbSelectionStatuses = await _context.SelectionStatuses.ToListAsync();
-            response.Data = dbSelectionStatuses.Select(selection => _mapper.Map<GetSelectionStatusDto>(selection)).ToList();
-            return response;
+            return new ServiceResponse<List<GetSelectionStatusDto>>
+            {
+                Data = await _context.SelectionStatuses
+                   .Select(selection => _mapper.Map<GetSelectionStatusDto>(selection))
+                   .ToListAsync()
+            };
         }
 
-        public async Task<ServiceResponse<GetSelectionDto>> GetSelectionById(int id)
+        public async Task<ServiceResponse<GetSelectionDto>> GetById(int id)
         {
             var response = new ServiceResponse<GetSelectionDto>();
             var dbSelection = await _context.Selections
@@ -59,23 +61,20 @@ namespace jap_task.Services.ProgramService
             var dbStudents = await _context.Students.Where(student => student.SelectionId == id).ToListAsync();
             response.Data =  _mapper.Map<GetSelectionDto>(dbSelection);
             response.Data.Students = dbStudents;
-            //response.Data.Students = dbStudents.ForEach(student => { student.Id = id});
             return response;
         }
 
-        public async Task<ServiceResponse<GetSelectionDto>> RemoveStudent(RemoveStudentDto removeStudent)
+        public async Task<ServiceResponse<GetSelectionDto>> Remove(RemoveStudentDto removeStudent)
         {
-            var response = new ServiceResponse<GetSelectionDto>();
-
             var student = await _context.Students
                 .FirstOrDefaultAsync(s => s.Id == removeStudent.StudentId && s.SelectionId == removeStudent.SelectionId);
             student.SelectionId = null;
             await _context.SaveChangesAsync();
 
-            return response;
+            return new ServiceResponse<GetSelectionDto>();
         }
 
-        public async Task<ServiceResponse<GetSelectionDto>> UpdateSelection(int id, UpdateSelectionDto updateSelection)
+        public async Task<ServiceResponse<GetSelectionDto>> Update(int id, UpdateSelectionDto updateSelection)
         {
             ServiceResponse<GetSelectionDto> response = new ServiceResponse<GetSelectionDto>();
 

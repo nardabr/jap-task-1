@@ -17,23 +17,25 @@ namespace server.Services.CommentService
             _mapper = mapper;
             _context = context;
         }
-        public async Task<ServiceResponse<GetCommentDto>> CreateComment(CreateCommentDto createComment)
+        public async Task<ServiceResponse<GetCommentDto>> Create(CreateCommentDto createComment)
         {
             var student = await _context.Students
                             .FirstOrDefaultAsync(s => s.Id == createComment.StudentId);
 
             var comment = new Comment();
-            comment.Text = createComment.Text;
-            comment.StudentId = (int)createComment.StudentId;
+            _mapper.Map(createComment, comment);
+            //comment.Text = createComment.Text;
+            //comment.StudentId = createComment.StudentId;
 
             _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
 
-            var serviceResponse = new ServiceResponse<GetCommentDto>();
-            serviceResponse.Success = true;
-            serviceResponse.Message = "Comment is created successfuly.";
-            //serviceResponse.Data
-            return serviceResponse;
+            return new ServiceResponse<GetCommentDto>
+            {
+                Success = true,
+                Message = "Comment is created successfuly."
+                //serviceResponse.Data
+            };
         }
     }
 }
