@@ -10,19 +10,19 @@ export const METHODS = {
 
 export const PATHS = {
   LOGIN_USER: "/AuthControllers/login",
-  GET_ALL_PROGRAMS: "/api/ProgramControllers/GetAll",
-  GET_STUDENTS: "/api/StudentControllers/GetAll",
-  GET_STUDENT: "/api/StudentControllers",
-  DELETE_STUDENT: "/api/StudentControllers",
-  GET_SELECTIONS: "/api/SelectionControllers/GetAll",
-  GET_SELECTIONSSTATUS: "/api/SelectionControllers/GetSelectionsStatus",
-  GET_STUDENT_STATUSES: "/api/StudentControllers/GetStudentStatuses",
-  EDIT_STUDENT: "/api/StudentControllers",
-  ADD_STUDENT: "/api/StudentControllers",
-  EDIT_SELECTION: "/api/SelectionControllers",
-  GET_SELECTION: "/api/SelectionControllers",
-  REMOVE_STUDENT: "/api/SelectionControllers/removeStudent",
-  ADD_COMMENT: "/api/Comment",
+  GET_ALL_PROGRAMS: "/api/program/GetAll",
+  GET_STUDENTS: "/api/student/GetAll",
+  GET_STUDENT: "/api/student",
+  DELETE_STUDENT: "/api/student",
+  GET_SELECTIONS: "/api/selection/GetAll",
+  GET_SELECTIONSSTATUS: "/api/selection/GetSelectionsStatuses",
+  GET_STUDENT_STATUSES: "/api/student/GetStudentStatuses",
+  EDIT_STUDENT: "/api/student",
+  ADD_STUDENT: "/api/student",
+  EDIT_SELECTION: "/api/selection",
+  GET_SELECTION: "/api/selection",
+  REMOVE_STUDENT: "/api/selection/removeStudent",
+  ADD_COMMENT: "/api/comment",
 };
 
 export const STUDENTSTABLEHEADER = [
