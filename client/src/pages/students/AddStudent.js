@@ -13,6 +13,7 @@ export default function AddStudent() {
   const [input, error, onChange, lengthValidation] = useFormFields({
     firstName: "",
     lastName: "",
+    email: "",
     statusId: "",
     selectionId: "",
   });
@@ -27,6 +28,7 @@ export default function AddStudent() {
     addNewStudent({
       firstName: input.firstName,
       lastName: input.lastName,
+      email: input.email,
       studentStatusId: input.statusId,
       selectionId: input.selectionId,
     });

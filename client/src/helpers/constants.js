@@ -23,6 +23,8 @@ export const PATHS = {
   GET_SELECTION: "/api/selection",
   REMOVE_STUDENT: "/api/selection/removeStudent",
   ADD_COMMENT: "/api/comment",
+  GET_SELECTIONSSUCCESSRATES: "/api/selection/GetSelectionsSuccessRates",
+  GET_OVERALLSUCCESSRATE: "/api/selection/GetOverallSuccessRate",
 };
 
 export const STUDENTSTABLEHEADER = [

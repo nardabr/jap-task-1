@@ -4,6 +4,7 @@ const store = createSlice({
   name: "store",
   initialState: {
     user: undefined,
+    userId: undefined,
     allPrograms: [],
     students: [],
     student: {},
@@ -12,10 +13,15 @@ const store = createSlice({
     studentStatuses: [],
     selection: {},
     pages: 1,
+    selectionsSuccessRates: [],
+    overallSuccessRate: {},
   },
   reducers: {
     setUser(state, { payload }) {
       state.user = payload;
+    },
+    setUserId(state, { payload }) {
+      state.userId = payload;
     },
     setAllPrograms(state, { payload }) {
       state.allPrograms = payload;
@@ -40,6 +46,15 @@ const store = createSlice({
     },
     setPages(state, { payload }) {
       state.pages = payload;
+    },
+    setSelectionsSuccessRates(state, { payload }) {
+      state.selectionsSuccessRates = payload;
+    },
+    setOverallSuccessRate(state, { payload }) {
+      state.overallSuccessRate = payload;
+    },
+    logout(state) {
+      state.user = undefined;
     },
   },
 });

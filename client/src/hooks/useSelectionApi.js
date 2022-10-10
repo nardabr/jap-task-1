@@ -46,6 +46,28 @@ export function useSelectionApi() {
       .catch((err) => setError(err.response.data.error));
   }
 
+  async function getSelectionsSuccessRates() {
+    await axios({
+      method: METHODS.GET,
+      url: PATHS.GET_SELECTIONSSUCCESSRATES,
+    })
+      .then((res) => {
+        dispatch(actions.setSelectionsSuccessRates(res.data));
+      })
+      .catch((err) => setError(err.response.data.error));
+  }
+
+  async function getOverallSuccessRate() {
+    await axios({
+      method: METHODS.GET,
+      url: PATHS.GET_OVERALLSUCCESSRATE,
+    })
+      .then((res) => {
+        dispatch(actions.setOverallSuccessRate(res.data[0]));
+      })
+      .catch((err) => setError(err.response.data.error));
+  }
+
   async function editSelection(selectionId, input) {
     await axios({
       method: METHODS.PATCH,
@@ -74,6 +96,8 @@ export function useSelectionApi() {
     getSelection,
     editSelection,
     removeStudent,
+    getSelectionsSuccessRates,
+    getOverallSuccessRate,
     apiError,
   };
 }

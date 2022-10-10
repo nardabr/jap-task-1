@@ -21,13 +21,19 @@ export default function DetailsStudent() {
   const params = useParams();
   const studentId = params.studentId;
   const student = useSelector((s) => s.store.student);
+  const userId = useSelector((s) => s.store.userId);
+  const user = useSelector((s) => s.store.user);
 
   useEffect(() => {
-    getStudent(studentId);
-  }, [studentId]); // eslint-disable-line
+    if (user === "admin") {
+      getStudent(studentId);
+    } else {
+      getStudent(userId);
+    }
+  }, [studentId, userId]); // eslint-disable-line
 
   useEffect(() => {
-    if (student.id == studentId) {  // eslint-disable-line
+    if (user === "admin" && student.id == studentId) { // eslint-disable-line
       setInput({
         firstName: student.firstName,
         lastName: student.lastName,
@@ -37,7 +43,15 @@ export default function DetailsStudent() {
         comments: [...student.comments],
       });
     }
-  }, [student, studentId]); // eslint-disable-line
+    if (user === "student" && student.id == userId) { // eslint-disable-line
+      setInput({
+        firstName: student.firstName,
+        lastName: student.lastName,
+        program: { ...student.selection?.program },
+        comments: [...student.comments],
+      });
+    }
+  }, [student, userId]); // eslint-disable-line
 
   if (!input.firstName) return null;
   return (

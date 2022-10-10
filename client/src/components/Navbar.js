@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { actions } from "../store/store";
 
 import {
   AppBar,
@@ -16,6 +18,8 @@ import logo from "../assets/img/elearning.png";
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((s) => s.store.user);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMenu = (event) => {
@@ -36,6 +40,15 @@ export default function Navbar() {
 
   function allSelectionsNavigate() {
     navigate("/selections/all");
+  }
+
+  function reportTabNavigate() {
+    navigate("/report-tab");
+  }
+
+  function logoutHandler() {
+    dispatch(actions.logout());
+    navigate("/");
   }
 
   return (
@@ -78,7 +91,15 @@ export default function Navbar() {
               onClick={handleClose}
             >
               <MenuItem onClick={allProgramsNavigate}>All Programs</MenuItem>
-              <MenuItem onClick={allSelectionsNavigate}>Selections</MenuItem>
+              {user !== "student" && (
+                <div>
+                  <MenuItem onClick={allSelectionsNavigate}>
+                    Selections
+                  </MenuItem>
+                  <MenuItem onClick={reportTabNavigate}>Report tab</MenuItem>
+                </div>
+              )}
+              <MenuItem onClick={logoutHandler}>Logout</MenuItem>
             </Menu>
           </div>
         </Toolbar>

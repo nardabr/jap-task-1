@@ -20,7 +20,8 @@ export function useUserApi() {
       data: input,
     })
       .then((res) => {
-        dispatch(actions.setUser(res.data.data));
+        dispatch(actions.setUser(res.data.role));
+        dispatch(actions.setUserId(res.data.userId));
         navigate("/homepage");
       })
       .catch((err) => setError(err.response.data.error));

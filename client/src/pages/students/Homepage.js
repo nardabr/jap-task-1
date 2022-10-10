@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import { useStudentApi } from "../../hooks/useStudentApi";
 
 import Modal from "../../components/UI/Modal";
 import ModalDelete from "../../components/ModalDelete";
 import StudentsTable from "../../components/StudentsTable";
+import DetailsStudent from "../students/DetailsStudent";
 
 export default function Homepage() {
   const { getStudents, deleteStudent } = useStudentApi();
+  const user = useSelector((s) => s.store.user);
   const [open, setOpen] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [page, setPage] = useState(1);
@@ -67,16 +70,20 @@ export default function Homepage() {
           deleteStudentHandler={deleteStudentHandler}
         />
       )}
-      <StudentsTable
-        setOpen={setOpen}
-        setDeleteModal={setDeleteModal}
-        search={search}
-        setSearchHandler={setSearchHandler}
-        order={order}
-        setOrderHandler={setOrderHandler}
-        page={page}
-        setPage={setPage}
-      />
+      {user === "admin" ? (
+        <StudentsTable
+          setOpen={setOpen}
+          setDeleteModal={setDeleteModal}
+          search={search}
+          setSearchHandler={setSearchHandler}
+          order={order}
+          setOrderHandler={setOrderHandler}
+          page={page}
+          setPage={setPage}
+        />
+      ) : (
+        <DetailsStudent />
+      )}
     </>
   );
 }

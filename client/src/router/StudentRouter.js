@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import ReportTab from "../pages/ReportTab";
 import AddStudent from "../pages/students/AddStudent";
 import DetailsStudent from "../pages/students/DetailsStudent";
 import EditStudent from "../pages/students/EditStudent";
@@ -15,6 +16,7 @@ export default function StudentRouter() {
         element={<DetailsStudent />}
       />
       <Route exact path="add-student" element={<AddStudent />} />
+      <Route exact path="report-tab" element={<ReportTab />} />
     </Routes>
   );
 }

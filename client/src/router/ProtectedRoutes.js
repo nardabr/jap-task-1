@@ -6,7 +6,7 @@ import { Box, Button, CircularProgress } from "@mui/material";
 export default function ProtectedRoutes() {
   const user = useSelector((s) => s.store.user);
   const navigate = useNavigate();
-
+  
   function toRegisterHandler() {
     navigate("/");
     window.location.reload();

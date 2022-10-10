@@ -16,6 +16,7 @@ export default function StudentForm({
 }) {
   const selections = useSelector((s) => s.store.selections);
   const studentStatuses = useSelector((s) => s.store.studentStatuses);
+  const user = useSelector((s) => s.store.user);
 
   return (
     <div>
@@ -41,41 +42,58 @@ export default function StudentForm({
         onBlur={() => lengthValidation("lastName", 1, 999)}
       />
       &nbsp;
-      <InputField
-        disabled={view}
-        label="Status"
-        name="statusId"
-        value={input.statusId}
-        onChange={onChange}
-        select={edit || add}
-        sx={styleTextField}
-      >
-        {studentStatuses.map((status) => (
-          <MenuItem key={status.id} value={status.id} sx={{ maxHeight: 15 }}>
-            {status.name}
-          </MenuItem>
-        ))}
-      </InputField>
+      {user === "admin" && add && (
+        <InputField
+          disabled={view}
+          label="Email"
+          name="email"
+          value={input.email}
+          onChange={onChange}
+          error={error.email}
+          sx={styleTextField}
+          onBlur={() => lengthValidation("email", 1, 999)}
+        />
+      )}
       &nbsp;
-      <InputField
-        disabled={view}
-        label="Selection"
-        name="selectionId"
-        value={input.selectionId}
-        onChange={onChange}
-        select={edit || add}
-        sx={styleTextField}
-      >
-        {selections.map((selection) => (
-          <MenuItem
-            key={selection.id}
-            value={selection.id}
-            sx={{ maxHeight: 15 }}
-          >
-            {selection.name}
-          </MenuItem>
-        ))}
-      </InputField>
+      {user === "admin" && (
+        <InputField
+          disabled={view}
+          label="Status"
+          name="statusId"
+          value={input.statusId}
+          onChange={onChange}
+          select={edit || add}
+          sx={styleTextField}
+        >
+          {studentStatuses.map((status) => (
+            <MenuItem key={status.id} value={status.id} sx={{ maxHeight: 15 }}>
+              {status.name}
+            </MenuItem>
+          ))}
+        </InputField>
+      )}
+      &nbsp;
+      {user === "admin" && (
+        <InputField
+          disabled={view}
+          label="Selection"
+          name="selectionId"
+          value={input.selectionId}
+          onChange={onChange}
+          select={edit || add}
+          sx={styleTextField}
+        >
+          {selections.map((selection) => (
+            <MenuItem
+              key={selection.id}
+              value={selection.id}
+              sx={{ maxHeight: 15 }}
+            >
+              {selection.name}
+            </MenuItem>
+          ))}
+        </InputField>
+      )}
       &nbsp;
       {view && input?.program && (
         <InputField
@@ -91,7 +109,7 @@ export default function StudentForm({
         />
       )}
       &nbsp;
-      {!edit && !add && (
+      {user === "admin" && view && (
         <div>
           <Typography variant="h6" gutterBottom>
             Comments
