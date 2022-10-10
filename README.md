@@ -5,14 +5,18 @@ This is my solution to the first JAP task.
 ## Application's main features:
 
 - User authenication
-- View a list of all available students
-- View a list of all available selections
-- View all available programs
+- Admin can view a list of all available students
+- Admin can view a list of all available selections
+- Admin can view all available programs
+- Admin can view report tab
+- Admin can create new student and send them their email and password.
 - Upon starting the application, table on that page is supporting:
   - ordering from ascending to descending
   - ordering from descending to ascending
   - filtering
   - pagination (4 users per page)
+- Students can login and view their informations
+- Students and Admin can logout
 
 ## Used Technologies
 
