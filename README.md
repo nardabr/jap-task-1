@@ -38,9 +38,11 @@ To get a local copy up and running follow these simple steps:
 
 1.  Clone the repository
     `https://github.com/nardabr/jap-task-1.git`
+
 2.  Server
 
 - Go to server folder and open `server.sln`
+- You will have to add API key for SendGrid. Go to `appSettings.json` and `appSettingsDevelopment.json`. Under `SendGridEmailSettings` -> `"APIKey": "SEND_GRID_API_KEY"` type your key instead of SEND_GRID_API_KEY.
 - After that from terminal run `dotnet ef database update`
 - You can test API on this link: `https://localhost:7067/swagger/index.html`
 
@@ -49,7 +51,7 @@ To get a local copy up and running follow these simple steps:
 - Go to client folder and run `npm install`
 - After that run `npm start` to start the frontend
 
-## Credentials for seeded user
+## Credentials for seeded admin
 
-- email: `admin@mail.com`
-- password: `admin1234`
+- email: `admin@email.com`
+- password: `Password123$`
