@@ -1,8 +1,12 @@
-﻿namespace jap_task.Dtos.User
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace jap_task.Dtos.User
 {
     public class UserLoginDto
     {
-        public string Email { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
+        [EmailAddress]
+        public string Email { get; set; }
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
     }
 }

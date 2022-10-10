@@ -9,5 +9,6 @@
         public StudentStatus Status { get; set; }
         public int? SelectionId { get; set; }
         public Selection Selection { get; set; }
+        public int UserId { get; set; }
     }
 }

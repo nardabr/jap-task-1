@@ -1,9 +1,8 @@
-﻿using jap_task.Dtos.Selection;
-using jap_task.Models;
-using jap_task.Services.ProgramService;
+﻿using jap_task.Data;
+using jap_task.Dtos.User;
 using Microsoft.AspNetCore.Mvc;
-using server.Dtos.Selection;
 using server.Dtos.Student;
+using server.Services.MailService;
 using server.Services.StudentService;
 
 namespace server.Controllers
@@ -14,10 +13,14 @@ namespace server.Controllers
     public class StudentControllers : ControllerBase
     {
         private readonly IStudentService _studentService;
+        private readonly IAuthRepository _authRepo;
+        private readonly IMailService _mailService;
 
-        public StudentControllers(IStudentService studentService)
+        public StudentControllers(IStudentService studentService, IAuthRepository authRepo, IMailService mailService)
         {
             _studentService = studentService;
+            _authRepo = authRepo;
+            _mailService = mailService;
         }
 
         [HttpGet("GetAll")]
@@ -38,10 +41,24 @@ namespace server.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AddStudentDto addStudent)
         {
+            var user = new UserInsertRequest
+            {
+                Username = addStudent.FirstName.ToLower() + addStudent.LastName.ToLower(),
+                Email = addStudent.Email,
+                Password = "Password123$",
+                ConfirmPassword = "Password123$", 
+                RoleId = 2,
+            };
+
+            var createdUser = await _authRepo.InsertUser(user);
+            addStudent.UserId = createdUser.Id;
+
+            await _mailService.SendEmailAsync(addStudent.Email, "Welcome new user", "Hey!, new user this is your password for login : Password123$ ");
+
             return Ok(await _studentService.Create(addStudent));
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id) 
         {
             return Ok(await _studentService.Delete(id));
         }

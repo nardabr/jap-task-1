@@ -1,7 +1,9 @@
 ﻿using jap_task.Data;
 using jap_task.Dtos.User;
 using jap_task.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using server.Services.MailService;
 
 namespace jap_task.Controllers
 {
@@ -10,21 +12,33 @@ namespace jap_task.Controllers
     public class AuthControllers : ControllerBase
     {
         private readonly IAuthRepository _authRepo;
+        private readonly IMailService _mailService;
 
-        public AuthControllers(IAuthRepository authRepo)
+        public AuthControllers(IAuthRepository authRepo, IMailService mailService)
         {
             _authRepo = authRepo;
+            _mailService = mailService;
         }
 
-        [HttpPost("login")]
-        public async Task<ActionResult<ServiceResponse<string>>> Login(UserLoginDto request)
+        [HttpPost]
+        [Route("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromBody] UserLoginDto req)
         {
-            var response = await _authRepo.Login(request.Email, request.Password);
-            if (!response.Success)
-            {
-                return BadRequest(response);
-            }
-            return Ok(response);
+            var res = await _authRepo.Login(req);
+
+            if (res != null)
+                return Ok(res);
+
+            return BadRequest(res);
+        }
+
+        [HttpPost("insert")]
+        public async Task<IActionResult> Post([FromBody] UserInsertRequest req)
+        {
+            var res = await _authRepo.InsertUser(req);
+            
+            return res != null ? Ok(res) : BadRequest(res);
         }
     }
 }

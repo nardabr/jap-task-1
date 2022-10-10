@@ -22,7 +22,6 @@ namespace jap_task.Services.ProgramService
             _mapper = mapper;
             _context = context;
         }
-
         public async Task<ServiceResponse<List<GetSelectionDto>>> GetAll()
         {
             var response = new ServiceResponse<List<GetSelectionDto>>();

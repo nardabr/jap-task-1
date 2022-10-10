@@ -2,6 +2,7 @@
 using jap_task.Services.ProgramService;
 using jap_task.Services.SelectionService;
 using server.Services.CommentService;
+using server.Services.MailService;
 using server.Services.StudentService;
 
 namespace server.Extensions
@@ -11,6 +12,7 @@ namespace server.Extensions
         public static void Services(this IServiceCollection service)
         {
             service.AddTransient<ISelectionService, SelectionService>();
+            service.AddTransient<IMailService, SendGridMailService>();
             service.AddScoped<IProgramService, ProgramService>();
             service.AddScoped<IStudentService, StudentService>();
             service.AddScoped<ICommentService, CommentService>();

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using jap_task.Data;
 
@@ -11,9 +12,10 @@ using jap_task.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221010102906_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -477,12 +479,12 @@ namespace server.Migrations
                         {
                             Id = -1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5ccaed60-8006-4efc-8d2f-ff3adef7ac6d",
+                            ConcurrencyStamp = "452db54b-5e18-48b3-a05a-46f4addbfd68",
                             Email = "admin@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPlMVtzPMet5usz4QXwZK0uCC6GHb27S7T/xpWeYDA5k+o3M+1ncJFBgnjq+4oxi6A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENjX/hGawTV15urFrTa4lKE5r1uFnosbN060e6WzLLUlD17Czq7/0juoahknRzvTXw==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -492,12 +494,12 @@ namespace server.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "32d79275-4fdf-4b5e-a37a-5bf7763ba590",
+                            ConcurrencyStamp = "63c37c31-d005-428b-9501-c583b32e6af7",
                             Email = "adalovelace@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADALOVELACE@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMLNeuPwDaeyywrIrmTtRA7ToCwQVttiE7BDNtWkbkcz1hnDr4WHD68ANGNrQHTnjQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFweT0ZuACh1cj+SsUf7dTxxoiMxehGA9slfUs33aX/0xylXjpCF0uHhqLD/phrBAA==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -507,12 +509,12 @@ namespace server.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8946149a-87c7-4e40-b573-e49c6fd8551f",
+                            ConcurrencyStamp = "4dd66327-e806-4ec3-b87a-35407c3c8228",
                             Email = "gracehopper@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "GRACEHOPPER@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEI/ZM8FrJ2izDoBwt1GogPAgSYS8sDlJEbxz4ynNMMjupWRkeYy5uzu9fXPQtZ6ttg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBF8pE7YbtIigueCgycoeqTz8kzjXw9zcO5RuZME234Xmc21vHOgyWRceCM6Ed+WLw==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -522,12 +524,12 @@ namespace server.Migrations
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ddb46eb8-56e3-4d1f-8474-19a5a8c29269",
+                            ConcurrencyStamp = "98ebd573-bbd7-4fca-99e6-933db9a25992",
                             Email = "joanclarke@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "JOANCLARKE@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP/3AGL5Ee5oxBrw5LpqpVXkg9+PQaKKiNTDG7tf2m7iY3XaFpshZ8fg4K1+hvuqRg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENsxbKF4swo3QxLOb1N3LLNy+Pl7QY4tU3E2e7UUSxeC7S3X18Ejsr5IybctH+ElFw==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -537,12 +539,12 @@ namespace server.Migrations
                         {
                             Id = 4,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "86a3e81d-81e4-4415-bb18-616cfb980c16",
+                            ConcurrencyStamp = "0f8a789a-caf4-4ca5-825e-83d4a5a0fadc",
                             Email = "harrypotter@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "HARRYPOTTER@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBmZ13J3o4K7rHDqqmx8GZRrvM7KStV4RwRvtk7MTFamde5chCHJve6O1dW0HZasaA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBL81K+3PuvYYW3pOVrApCmRZF/Q5WJpybFeraP4C3AOW3vqYErLcedEu4QQuOH6OA==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -552,12 +554,12 @@ namespace server.Migrations
                         {
                             Id = 5,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fa64883f-4d60-4050-ad73-8eabb2b4f556",
+                            ConcurrencyStamp = "55b98a02-d70e-4870-ae97-9f9d1bf26936",
                             Email = "hermionegranger@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "HERMIONEGRANGER@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGiVDOaUFAFFqIUPicE3KJVb54IyZ0EBMsdMvWDPQ9dqVdSldT3n4ioQkm0jlnNKdA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBbV85zXw3917/HkCog/4ThEZDcdoYDDbgCojBGXgP0ZRTVsztBXu2tEbvdm1lhwMw==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -567,12 +569,12 @@ namespace server.Migrations
                         {
                             Id = 6,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "26633b95-747a-44fa-93c8-15fcf9f88262",
+                            ConcurrencyStamp = "791c9d7e-d056-4ba0-a68f-0df5c2fef87c",
                             Email = "ronweasley@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "RONWEASLEY@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJwhiVDKXOu1biEyBDB9QsQsQ9PFbBS//IFHZPvEAQbuHJDAVWxQO4fbjuiMoTCwQw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG93+icmCZG6ScvxfeLuQ/s5o77srrw4t5DnxImPRd3mjKBqLmsYm8KMr5ChzB9kmg==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -582,12 +584,12 @@ namespace server.Migrations
                         {
                             Id = 7,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e28dcf37-edf4-49e3-a46b-99a05c490ecb",
+                            ConcurrencyStamp = "c17be1f9-86f7-477a-a5d4-e72bb389364f",
                             Email = "albusdumbledore@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ALBUSDUMBLEDORE@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFABCfmxEL7eiq99Up+hLB4js23ds9s6zqVUzJum2VGt1SvKEgZip7EqpP4jaEeC9Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIviyITWJgN3ZURq/TiERAyJvLaZTGdQPAtO3POyl51F/MeDFme/OK0NJ5i618xjCQ==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -597,12 +599,12 @@ namespace server.Migrations
                         {
                             Id = 8,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a440b482-d90b-40c0-9fe2-82942e93a6dd",
+                            ConcurrencyStamp = "cf17686c-f5b8-4035-a2b6-49387b3a38fe",
                             Email = "lordvoldemort@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "LORDVOLDEMORT@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPMRxytjbFpuZtbHozYgHe9kqTzFboL9Up8xOaQD0EaCTq/nnf2ose6QW6B4y1DbXQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO2yGeDg3JAKcu029/kAhJafTpOPgjRqRL8337sRwUzEfKVI55tmEEDKERKqbMis7Q==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -612,12 +614,12 @@ namespace server.Migrations
                         {
                             Id = 9,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f64db156-4cee-480f-abfb-131e4fcafb23",
+                            ConcurrencyStamp = "d1a79842-46e4-4104-b1c8-a35a83f43885",
                             Email = "dracomalfoy@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "DRACOMALFOY@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDqczhM/d7GuWcgJkjlIlUBa9Nj2cpI0dtlGtr666Vq0tDaXflnTYD7qwC+0Lkv2WQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDLXDfXLzUYGGaa8w1Pgemqsoy/Q9aUMHkWmBx36z/j8KztwYJ/bNRfjsit/62L4wA==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -627,12 +629,12 @@ namespace server.Migrations
                         {
                             Id = 10,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "982db563-a1bd-4061-a642-31c4291e87db",
+                            ConcurrencyStamp = "f9657099-0f43-4325-90d8-0953b98bd7fd",
                             Email = "siriusblack@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "SIRIUSBLACK@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEVtyUJ9Bql2/ifXHNJjv3CCbydck6eiB9yoSsZQ/ISE1wv+VrWAW2HmPIzORXSXog==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENXJbNwoYnEcR50ic7QWCjRFH6OIGbUeKFzC4sKidR3+Q0pAKB4c4Z90Ni3Yf011NA==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
