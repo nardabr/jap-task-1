@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using jap_task.Data;
+using Server.Database;
 
 #nullable disable
 
-namespace server.Migrations
+namespace Server.Database.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
@@ -17,34 +17,100 @@ namespace server.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.9")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("jap_task.Dtos.Selection.GetOverallSuccesRateDto", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
-                    b.Property<double>("OverallSuccessRate")
-                        .HasColumnType("float");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.ToTable("GetOverallSuccesRate");
-                });
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-            modelBuilder.Entity("jap_task.Dtos.Selection.GetSelectionsSuccesRatesDto", b =>
-                {
-                    b.Property<string>("ProgramName")
+                    b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SelectionName")
+                    b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("SelectionSuccessRate")
-                        .HasColumnType("float");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
-                    b.ToTable("GetSelectionsSuccessRates");
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("jap_task.Models.Comment", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Server.Core.Entities.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -59,6 +125,7 @@ namespace server.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -66,7 +133,7 @@ namespace server.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("jap_task.Models.Program", b =>
+            modelBuilder.Entity("Server.Core.Entities.Program", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -75,9 +142,11 @@ namespace server.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -105,7 +174,7 @@ namespace server.Migrations
                         });
                 });
 
-            modelBuilder.Entity("jap_task.Models.Role", b =>
+            modelBuilder.Entity("Server.Core.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -151,7 +220,7 @@ namespace server.Migrations
                         });
                 });
 
-            modelBuilder.Entity("jap_task.Models.Selection", b =>
+            modelBuilder.Entity("Server.Core.Entities.Selection", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -163,6 +232,7 @@ namespace server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProgramId")
@@ -212,7 +282,7 @@ namespace server.Migrations
                         });
                 });
 
-            modelBuilder.Entity("jap_task.Models.SelectionStatus", b =>
+            modelBuilder.Entity("Server.Core.Entities.SelectionStatus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -221,6 +291,7 @@ namespace server.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -240,7 +311,7 @@ namespace server.Migrations
                         });
                 });
 
-            modelBuilder.Entity("jap_task.Models.Student", b =>
+            modelBuilder.Entity("Server.Core.Entities.Student", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -249,9 +320,11 @@ namespace server.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("SelectionId")
@@ -364,7 +437,7 @@ namespace server.Migrations
                         });
                 });
 
-            modelBuilder.Entity("jap_task.Models.StudentStatus", b =>
+            modelBuilder.Entity("Server.Core.Entities.StudentStatus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -373,6 +446,7 @@ namespace server.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -402,7 +476,7 @@ namespace server.Migrations
                         });
                 });
 
-            modelBuilder.Entity("jap_task.Models.User", b =>
+            modelBuilder.Entity("Server.Core.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -477,12 +551,12 @@ namespace server.Migrations
                         {
                             Id = -1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5ccaed60-8006-4efc-8d2f-ff3adef7ac6d",
+                            ConcurrencyStamp = "d3ae3dd7-62c3-4085-a818-bd24f2658d58",
                             Email = "admin@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPlMVtzPMet5usz4QXwZK0uCC6GHb27S7T/xpWeYDA5k+o3M+1ncJFBgnjq+4oxi6A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEI68GBH88Ofm82VRoQk1uS+d6tvmkSnHHG5XlQWUdGIWzIvYqIpqoKWug5IRr/FCSA==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -492,12 +566,12 @@ namespace server.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "32d79275-4fdf-4b5e-a37a-5bf7763ba590",
+                            ConcurrencyStamp = "965490fa-f4bb-432f-9bb1-bd41c7f82c20",
                             Email = "adalovelace@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADALOVELACE@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMLNeuPwDaeyywrIrmTtRA7ToCwQVttiE7BDNtWkbkcz1hnDr4WHD68ANGNrQHTnjQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKNFBdnSKmR68B+efSXfTv03EQk0GRCkJ5d9cl61424NhJOWvZs36ibR/VgwkP6Lww==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -507,12 +581,12 @@ namespace server.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8946149a-87c7-4e40-b573-e49c6fd8551f",
+                            ConcurrencyStamp = "e2f28b45-5140-48e0-bc68-c06ba8c5f307",
                             Email = "gracehopper@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "GRACEHOPPER@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEI/ZM8FrJ2izDoBwt1GogPAgSYS8sDlJEbxz4ynNMMjupWRkeYy5uzu9fXPQtZ6ttg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPyWZxq+YA8l03qVtIpn4xzr1Hkcvov7u5kraRfdO9foXAmj1oNT/cR4TeMmWrG37Q==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -522,12 +596,12 @@ namespace server.Migrations
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ddb46eb8-56e3-4d1f-8474-19a5a8c29269",
+                            ConcurrencyStamp = "1f808d57-f412-4a97-b81b-9fa4f4113bad",
                             Email = "joanclarke@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "JOANCLARKE@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP/3AGL5Ee5oxBrw5LpqpVXkg9+PQaKKiNTDG7tf2m7iY3XaFpshZ8fg4K1+hvuqRg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIW5nqe3E/Byx7NIG3aq2hbn5CkMClX60cHlrFZdvegkeeakNl6UCoN9hCQoTb+rPg==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -537,12 +611,12 @@ namespace server.Migrations
                         {
                             Id = 4,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "86a3e81d-81e4-4415-bb18-616cfb980c16",
+                            ConcurrencyStamp = "df2e30f7-2bf7-405e-8a62-8d5661ab68a9",
                             Email = "harrypotter@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "HARRYPOTTER@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBmZ13J3o4K7rHDqqmx8GZRrvM7KStV4RwRvtk7MTFamde5chCHJve6O1dW0HZasaA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMBA0caD/Np99InNI5c2U4K0J/E6cz8KVaO2a8smL85BFOyXOF4WYLORaboCtItVrQ==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -552,12 +626,12 @@ namespace server.Migrations
                         {
                             Id = 5,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fa64883f-4d60-4050-ad73-8eabb2b4f556",
+                            ConcurrencyStamp = "8e896752-29ce-44e5-a171-bb1a91125281",
                             Email = "hermionegranger@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "HERMIONEGRANGER@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGiVDOaUFAFFqIUPicE3KJVb54IyZ0EBMsdMvWDPQ9dqVdSldT3n4ioQkm0jlnNKdA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPOiomNphGzjHh88IY9Y9u4KJgJoHUtPgp3TV1Kfyc5/7yCfFyvL+cYPEZIWu5P/AA==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -567,12 +641,12 @@ namespace server.Migrations
                         {
                             Id = 6,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "26633b95-747a-44fa-93c8-15fcf9f88262",
+                            ConcurrencyStamp = "1a8ac55d-7e0a-4fde-b764-b5e6ea52933b",
                             Email = "ronweasley@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "RONWEASLEY@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJwhiVDKXOu1biEyBDB9QsQsQ9PFbBS//IFHZPvEAQbuHJDAVWxQO4fbjuiMoTCwQw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECsxvivMkOx2xFZGiHrpRw/y0h2w1gN0G/lyy3A3SXcsKa747Qgx4iOHKzOFtheHnA==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -582,12 +656,12 @@ namespace server.Migrations
                         {
                             Id = 7,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e28dcf37-edf4-49e3-a46b-99a05c490ecb",
+                            ConcurrencyStamp = "09446890-0a11-44d7-9edc-ebd3d3519f29",
                             Email = "albusdumbledore@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ALBUSDUMBLEDORE@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFABCfmxEL7eiq99Up+hLB4js23ds9s6zqVUzJum2VGt1SvKEgZip7EqpP4jaEeC9Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGKQ2BQY20iiiAdGVV+Gfl6H6oqxjKizdslKbZP8Moqm+5IqzItaporrhYhbEmzexg==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -597,12 +671,12 @@ namespace server.Migrations
                         {
                             Id = 8,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a440b482-d90b-40c0-9fe2-82942e93a6dd",
+                            ConcurrencyStamp = "c464245c-bf8c-460c-9987-fe5695087b6d",
                             Email = "lordvoldemort@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "LORDVOLDEMORT@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPMRxytjbFpuZtbHozYgHe9kqTzFboL9Up8xOaQD0EaCTq/nnf2ose6QW6B4y1DbXQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEN14vbYhh3V2vTKr+oQbRoJJh4LOgfNSQ0hPc0MkVRpQVgEEknEt1y4eiAFO51/xwg==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -612,12 +686,12 @@ namespace server.Migrations
                         {
                             Id = 9,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f64db156-4cee-480f-abfb-131e4fcafb23",
+                            ConcurrencyStamp = "47429b4e-a97a-4c42-94cf-7453ce921800",
                             Email = "dracomalfoy@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "DRACOMALFOY@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDqczhM/d7GuWcgJkjlIlUBa9Nj2cpI0dtlGtr666Vq0tDaXflnTYD7qwC+0Lkv2WQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEELs98E4Ch0QLVXNBHBllNCTFaQk4eftz26SSkFbPFKSMW4Uk2HpsGjTNJnPQiWpuQ==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -627,12 +701,12 @@ namespace server.Migrations
                         {
                             Id = 10,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "982db563-a1bd-4061-a642-31c4291e87db",
+                            ConcurrencyStamp = "2a148e13-9268-4944-8e98-4af2a3967f53",
                             Email = "siriusblack@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "SIRIUSBLACK@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEVtyUJ9Bql2/ifXHNJjv3CCbydck6eiB9yoSsZQ/ISE1wv+VrWAW2HmPIzORXSXog==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOCmumKygTfmy8tQZpxlivxTzadGUoYPqAk7xjvxhauwMTAFJ65aIXVHRXYV2slSzQ==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -640,7 +714,7 @@ namespace server.Migrations
                         });
                 });
 
-            modelBuilder.Entity("jap_task.Models.UserRole", b =>
+            modelBuilder.Entity("Server.Core.Entities.UserRole", b =>
                 {
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -648,19 +722,9 @@ namespace server.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoleId1")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("int");
-
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
-
-                    b.HasIndex("RoleId1");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserRoles", (string)null);
 
@@ -674,106 +738,123 @@ namespace server.Migrations
                         {
                             UserId = 1,
                             RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 4,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 5,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 6,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 7,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 8,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 9,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 10,
+                            RoleId = 2
                         });
+                });
+
+            modelBuilder.Entity("Server.Core.Requests.Selection.GetOverallSuccesRateDto", b =>
+                {
+                    b.Property<double>("OverallSuccessRate")
+                        .HasColumnType("float");
+
+                    b.ToTable("GetOverallSuccesRate");
+                });
+
+            modelBuilder.Entity("Server.Core.Requests.Selection.GetSelectionsSuccesRatesDto", b =>
+                {
+                    b.Property<string>("ProgramName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SelectionName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("SelectionSuccessRate")
+                        .HasColumnType("float");
+
+                    b.ToTable("GetSelectionsSuccessRates");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.HasOne("Server.Core.Entities.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.HasOne("Server.Core.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("LoginProvider", "ProviderKey");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.HasOne("Server.Core.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.HasOne("Server.Core.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("jap_task.Models.Selection", b =>
+            modelBuilder.Entity("Server.Core.Entities.Selection", b =>
                 {
-                    b.HasOne("jap_task.Models.Program", "Program")
+                    b.HasOne("Server.Core.Entities.Program", "Program")
                         .WithMany()
                         .HasForeignKey("ProgramId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("jap_task.Models.SelectionStatus", "Status")
+                    b.HasOne("Server.Core.Entities.SelectionStatus", "Status")
                         .WithMany()
                         .HasForeignKey("SelectionStatusId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -784,14 +865,14 @@ namespace server.Migrations
                     b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("jap_task.Models.Student", b =>
+            modelBuilder.Entity("Server.Core.Entities.Student", b =>
                 {
-                    b.HasOne("jap_task.Models.Selection", "Selection")
+                    b.HasOne("Server.Core.Entities.Selection", "Selection")
                         .WithMany()
                         .HasForeignKey("SelectionId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("jap_task.Models.StudentStatus", "Status")
+                    b.HasOne("Server.Core.Entities.StudentStatus", "Status")
                         .WithMany()
                         .HasForeignKey("StudentStatusId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -802,72 +883,26 @@ namespace server.Migrations
                     b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("jap_task.Models.UserRole", b =>
+            modelBuilder.Entity("Server.Core.Entities.UserRole", b =>
                 {
-                    b.HasOne("jap_task.Models.Role", null)
-                        .WithMany()
+                    b.HasOne("Server.Core.Entities.Role", "Role")
+                        .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("jap_task.Models.Role", "Role")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("RoleId1")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("jap_task.Models.User", null)
+                    b.HasOne("Server.Core.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("jap_task.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1")
-                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Role");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
-                {
-                    b.HasOne("jap_task.Models.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
-                {
-                    b.HasOne("jap_task.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
-                {
-                    b.HasOne("jap_task.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
-                {
-                    b.HasOne("jap_task.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("jap_task.Models.Role", b =>
+            modelBuilder.Entity("Server.Core.Entities.Role", b =>
                 {
                     b.Navigation("UserRoles");
                 });

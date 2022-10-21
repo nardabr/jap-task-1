@@ -2,9 +2,9 @@
 
 #nullable disable
 
-namespace server.Migrations
+namespace Server.Database.Migrations
 {
-    public partial class StoreProcedure : Migration
+    public partial class StoreProcedures : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

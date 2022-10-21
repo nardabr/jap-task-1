@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SendGrid;
+﻿using SendGrid;
 using SendGrid.Helpers.Mail;
 
 namespace Server.Core.Interfaces

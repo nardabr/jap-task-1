@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace server.Migrations
+namespace Server.Database.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -57,7 +57,7 @@ namespace server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StudentId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -72,8 +72,8 @@ namespace server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -86,7 +86,7 @@ namespace server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,7 +99,7 @@ namespace server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -173,9 +173,7 @@ namespace server.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false),
-                    UserId1 = table.Column<int>(type: "int", nullable: true),
-                    RoleId1 = table.Column<int>(type: "int", nullable: true)
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -187,20 +185,8 @@ namespace server.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId1",
-                        column: x => x.RoleId1,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -232,7 +218,7 @@ namespace server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SelectionStatusId = table.Column<int>(type: "int", nullable: false),
@@ -261,8 +247,8 @@ namespace server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentStatusId = table.Column<int>(type: "int", nullable: false),
                     SelectionId = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false)
@@ -298,17 +284,17 @@ namespace server.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { -1, 0, "452db54b-5e18-48b3-a05a-46f4addbfd68", "admin@email.com", false, false, null, "ADMIN@EMAIL.COM", null, "AQAAAAEAACcQAAAAENjX/hGawTV15urFrTa4lKE5r1uFnosbN060e6WzLLUlD17Czq7/0juoahknRzvTXw==", null, false, null, 1, false, "admin" },
-                    { 1, 0, "63c37c31-d005-428b-9501-c583b32e6af7", "adalovelace@email.com", false, false, null, "ADALOVELACE@EMAIL.COM", null, "AQAAAAEAACcQAAAAEFweT0ZuACh1cj+SsUf7dTxxoiMxehGA9slfUs33aX/0xylXjpCF0uHhqLD/phrBAA==", null, false, null, 1, false, "adalovelace" },
-                    { 2, 0, "4dd66327-e806-4ec3-b87a-35407c3c8228", "gracehopper@email.com", false, false, null, "GRACEHOPPER@EMAIL.COM", null, "AQAAAAEAACcQAAAAEBF8pE7YbtIigueCgycoeqTz8kzjXw9zcO5RuZME234Xmc21vHOgyWRceCM6Ed+WLw==", null, false, null, 1, false, "gracehopper" },
-                    { 3, 0, "98ebd573-bbd7-4fca-99e6-933db9a25992", "joanclarke@email.com", false, false, null, "JOANCLARKE@EMAIL.COM", null, "AQAAAAEAACcQAAAAENsxbKF4swo3QxLOb1N3LLNy+Pl7QY4tU3E2e7UUSxeC7S3X18Ejsr5IybctH+ElFw==", null, false, null, 1, false, "joanclarke" },
-                    { 4, 0, "0f8a789a-caf4-4ca5-825e-83d4a5a0fadc", "harrypotter@email.com", false, false, null, "HARRYPOTTER@EMAIL.COM", null, "AQAAAAEAACcQAAAAEBL81K+3PuvYYW3pOVrApCmRZF/Q5WJpybFeraP4C3AOW3vqYErLcedEu4QQuOH6OA==", null, false, null, 1, false, "harrypotter" },
-                    { 5, 0, "55b98a02-d70e-4870-ae97-9f9d1bf26936", "hermionegranger@email.com", false, false, null, "HERMIONEGRANGER@EMAIL.COM", null, "AQAAAAEAACcQAAAAEBbV85zXw3917/HkCog/4ThEZDcdoYDDbgCojBGXgP0ZRTVsztBXu2tEbvdm1lhwMw==", null, false, null, 1, false, "hermionegranger" },
-                    { 6, 0, "791c9d7e-d056-4ba0-a68f-0df5c2fef87c", "ronweasley@email.com", false, false, null, "RONWEASLEY@EMAIL.COM", null, "AQAAAAEAACcQAAAAEG93+icmCZG6ScvxfeLuQ/s5o77srrw4t5DnxImPRd3mjKBqLmsYm8KMr5ChzB9kmg==", null, false, null, 1, false, "ronweasley" },
-                    { 7, 0, "c17be1f9-86f7-477a-a5d4-e72bb389364f", "albusdumbledore@email.com", false, false, null, "ALBUSDUMBLEDORE@EMAIL.COM", null, "AQAAAAEAACcQAAAAEIviyITWJgN3ZURq/TiERAyJvLaZTGdQPAtO3POyl51F/MeDFme/OK0NJ5i618xjCQ==", null, false, null, 1, false, "albusdumbledore" },
-                    { 8, 0, "cf17686c-f5b8-4035-a2b6-49387b3a38fe", "lordvoldemort@email.com", false, false, null, "LORDVOLDEMORT@EMAIL.COM", null, "AQAAAAEAACcQAAAAEO2yGeDg3JAKcu029/kAhJafTpOPgjRqRL8337sRwUzEfKVI55tmEEDKERKqbMis7Q==", null, false, null, 1, false, "lordvoldemort" },
-                    { 9, 0, "d1a79842-46e4-4104-b1c8-a35a83f43885", "dracomalfoy@email.com", false, false, null, "DRACOMALFOY@EMAIL.COM", null, "AQAAAAEAACcQAAAAEDLXDfXLzUYGGaa8w1Pgemqsoy/Q9aUMHkWmBx36z/j8KztwYJ/bNRfjsit/62L4wA==", null, false, null, 1, false, "dracomalfoy" },
-                    { 10, 0, "f9657099-0f43-4325-90d8-0953b98bd7fd", "siriusblack@email.com", false, false, null, "SIRIUSBLACK@EMAIL.COM", null, "AQAAAAEAACcQAAAAENXJbNwoYnEcR50ic7QWCjRFH6OIGbUeKFzC4sKidR3+Q0pAKB4c4Z90Ni3Yf011NA==", null, false, null, 1, false, "siriusblack" }
+                    { -1, 0, "957078a2-d960-4d39-86ab-ec34a265a33a", "admin@email.com", false, false, null, "ADMIN@EMAIL.COM", null, "AQAAAAEAACcQAAAAECeiWq4esZM0udz7haENwBV1/E0UqxtXQq3dCFAUiMoDiS3WNFq98HGglHxRc2pvew==", null, false, null, 1, false, "admin" },
+                    { 1, 0, "fc498eca-51bb-4c43-a4ad-9012eb3189a1", "adalovelace@email.com", false, false, null, "ADALOVELACE@EMAIL.COM", null, "AQAAAAEAACcQAAAAEL1OD7qMWwqXsDdMKFKEOa9RN34+EVYGdVQEdG4q9QLTp7reiYcoz1nm1escjIRUJw==", null, false, null, 1, false, "adalovelace" },
+                    { 2, 0, "1a294858-b0df-49de-a82f-633911660649", "gracehopper@email.com", false, false, null, "GRACEHOPPER@EMAIL.COM", null, "AQAAAAEAACcQAAAAEPOwD3uKUIaLCFOmJEYTIh414Cqht5ewSpJKeME91Th4Rqb64cxSUb510EFo8yaqSw==", null, false, null, 1, false, "gracehopper" },
+                    { 3, 0, "21f312b8-c595-495f-ba47-61b4b42b388e", "joanclarke@email.com", false, false, null, "JOANCLARKE@EMAIL.COM", null, "AQAAAAEAACcQAAAAEItIFOezclUXvOrJ7+lcV2ocS77JgkA2HBMOqiebcGiJUstUYdIUUqVOSka7AXMjKw==", null, false, null, 1, false, "joanclarke" },
+                    { 4, 0, "09076358-6047-4afa-b1fe-653f6a272674", "harrypotter@email.com", false, false, null, "HARRYPOTTER@EMAIL.COM", null, "AQAAAAEAACcQAAAAECqHrBHs0Wrx5QY6NQrdeRcxNUCO2C6IQ2Rql8mib7V3fq0DtoQEGQ0Bx/BSPLEbXg==", null, false, null, 1, false, "harrypotter" },
+                    { 5, 0, "39826596-9ecb-41bc-9eb8-f0dfedbff35b", "hermionegranger@email.com", false, false, null, "HERMIONEGRANGER@EMAIL.COM", null, "AQAAAAEAACcQAAAAEKMTbVLrPmva9EowKocAkPHwHpcURL+Ib9xVMccArmpBIs486dwqzMTO1aquGOmxhg==", null, false, null, 1, false, "hermionegranger" },
+                    { 6, 0, "430c2190-b4bb-4d0b-a6ce-ca7400c332ba", "ronweasley@email.com", false, false, null, "RONWEASLEY@EMAIL.COM", null, "AQAAAAEAACcQAAAAENPbZHlzntxhVynxPiUE0L2ZAitiJyhGYWjpkwxo9+4OAlCEiUnkf3FlADMowqWqVg==", null, false, null, 1, false, "ronweasley" },
+                    { 7, 0, "98ed6bfc-5883-448f-bcd1-c4657d110dc5", "albusdumbledore@email.com", false, false, null, "ALBUSDUMBLEDORE@EMAIL.COM", null, "AQAAAAEAACcQAAAAELtgLyFVyTOEoMLK5gtRpuvmQkAD+66uP619uW38rbKKmCn+26mP7vjKUq780z6CEA==", null, false, null, 1, false, "albusdumbledore" },
+                    { 8, 0, "e3485fc0-ca9a-445b-9842-44b01687933b", "lordvoldemort@email.com", false, false, null, "LORDVOLDEMORT@EMAIL.COM", null, "AQAAAAEAACcQAAAAELZDw+tQepv1jsm2C+dThdKkqQ5BfxzNCSGxQcQC2ofruYCkm9vqoGwmZ54Hm5ZYeA==", null, false, null, 1, false, "lordvoldemort" },
+                    { 9, 0, "0a9d721f-6569-4d39-9986-edba64da28e0", "dracomalfoy@email.com", false, false, null, "DRACOMALFOY@EMAIL.COM", null, "AQAAAAEAACcQAAAAEApErfyR53/CvURHO/CKD14mF+LUIolxMB9j+8j2If9nuYzloEohDYud2wUsjBFHuA==", null, false, null, 1, false, "dracomalfoy" },
+                    { 10, 0, "32fd14a9-49ad-4589-aef6-68582bef7274", "siriusblack@email.com", false, false, null, "SIRIUSBLACK@EMAIL.COM", null, "AQAAAAEAACcQAAAAEGDZpaYEX9T/4JguLI+LYz9FRb1O8YByuQTVtdcVhLtEv8wClnOWd9jEQFgDe635Cw==", null, false, null, 1, false, "siriusblack" }
                 });
 
             migrationBuilder.InsertData(
@@ -343,11 +329,20 @@ namespace server.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
-                columns: new[] { "RoleId", "UserId", "RoleId1", "UserId1" },
+                columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, -1, null, null },
-                    { 2, 1, null, null }
+                    { 1, -1 },
+                    { 2, 1 },
+                    { 2, 2 },
+                    { 2, 3 },
+                    { 2, 4 },
+                    { 2, 5 },
+                    { 2, 6 },
+                    { 2, 7 },
+                    { 2, 8 },
+                    { 2, 9 },
+                    { 2, 10 }
                 });
 
             migrationBuilder.InsertData(
@@ -403,16 +398,6 @@ namespace server.Migrations
                 name: "IX_AspNetUserRoles_RoleId",
                 table: "AspNetUserRoles",
                 column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserRoles_RoleId1",
-                table: "AspNetUserRoles",
-                column: "RoleId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserRoles_UserId1",
-                table: "AspNetUserRoles",
-                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
