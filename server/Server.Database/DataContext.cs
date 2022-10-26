@@ -35,6 +35,8 @@ namespace Server.Database
             modelBuilder.SeedSelections();
             modelBuilder.SeedStudentStatuses();
             modelBuilder.SeedStudents();
+            modelBuilder.SeedLectureEvents();
+            modelBuilder.SeedStudentLectureEvents();
         }
 
         public DbSet<Core.Entities.Program> Programs { get; set; }
@@ -45,5 +47,7 @@ namespace Server.Database
         public DbSet<Comment> Comments { get; set; }
         public DbSet<GetSelectionsSuccesRatesDto> GetSelectionsSuccessRates { get; set; }
         public DbSet<GetOverallSuccesRateDto> GetOverallSuccesRate { get; set; }
+        public DbSet<LectureEvent> LectureEvents { get; set; }
+        public DbSet<StudentLectureEvents> StudentLectureEvents { get; set; }
     }
 }

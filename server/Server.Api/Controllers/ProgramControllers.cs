@@ -20,5 +20,10 @@ namespace Server.Api.Controllers
         {
             return Ok(await _programService.GetAll());
         }
+        [HttpGet("GetProgramDetails")]
+        public async Task<IActionResult> GetProgramDetails(int programId, string? orderBy)
+        {
+            return Ok(await _programService.GetProgramDetails(programId, orderBy));
+        }
     }
 }

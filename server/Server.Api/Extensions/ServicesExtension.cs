@@ -14,6 +14,8 @@ namespace Server.Api.Extensions
             service.AddScoped<IStudentService, StudentService>();
             service.AddScoped<ICommentService, CommentService>();
             service.AddScoped<IAuthRepository, AuthRepository>();
+            service.AddScoped<ILectureEventService, LectureEventService>();
+            service.AddScoped<IStudentLectureEventsService, StudentLectureEventsService>();
         }
     }
 }

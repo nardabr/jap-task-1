@@ -213,6 +213,33 @@ namespace Server.Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LectureEvents",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProgramId = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WorkHours = table.Column<int>(type: "int", nullable: false),
+                    OrderNumber = table.Column<int>(type: "int", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LectureEvents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LectureEvents_Programs_ProgramId",
+                        column: x => x.ProgramId,
+                        principalTable: "Programs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Selections",
                 columns: table => new
                 {
@@ -270,6 +297,34 @@ namespace Server.Database.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "StudentLectureEvents",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StudentId = table.Column<int>(type: "int", nullable: false),
+                    DoneByCandidate = table.Column<int>(type: "int", nullable: false),
+                    StatusByCandidate = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LectureEventId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudentLectureEvents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StudentLectureEvents_LectureEvents_LectureEventId",
+                        column: x => x.LectureEventId,
+                        principalTable: "LectureEvents",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StudentLectureEvents_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
@@ -284,17 +339,17 @@ namespace Server.Database.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { -1, 0, "957078a2-d960-4d39-86ab-ec34a265a33a", "admin@email.com", false, false, null, "ADMIN@EMAIL.COM", null, "AQAAAAEAACcQAAAAECeiWq4esZM0udz7haENwBV1/E0UqxtXQq3dCFAUiMoDiS3WNFq98HGglHxRc2pvew==", null, false, null, 1, false, "admin" },
-                    { 1, 0, "fc498eca-51bb-4c43-a4ad-9012eb3189a1", "adalovelace@email.com", false, false, null, "ADALOVELACE@EMAIL.COM", null, "AQAAAAEAACcQAAAAEL1OD7qMWwqXsDdMKFKEOa9RN34+EVYGdVQEdG4q9QLTp7reiYcoz1nm1escjIRUJw==", null, false, null, 1, false, "adalovelace" },
-                    { 2, 0, "1a294858-b0df-49de-a82f-633911660649", "gracehopper@email.com", false, false, null, "GRACEHOPPER@EMAIL.COM", null, "AQAAAAEAACcQAAAAEPOwD3uKUIaLCFOmJEYTIh414Cqht5ewSpJKeME91Th4Rqb64cxSUb510EFo8yaqSw==", null, false, null, 1, false, "gracehopper" },
-                    { 3, 0, "21f312b8-c595-495f-ba47-61b4b42b388e", "joanclarke@email.com", false, false, null, "JOANCLARKE@EMAIL.COM", null, "AQAAAAEAACcQAAAAEItIFOezclUXvOrJ7+lcV2ocS77JgkA2HBMOqiebcGiJUstUYdIUUqVOSka7AXMjKw==", null, false, null, 1, false, "joanclarke" },
-                    { 4, 0, "09076358-6047-4afa-b1fe-653f6a272674", "harrypotter@email.com", false, false, null, "HARRYPOTTER@EMAIL.COM", null, "AQAAAAEAACcQAAAAECqHrBHs0Wrx5QY6NQrdeRcxNUCO2C6IQ2Rql8mib7V3fq0DtoQEGQ0Bx/BSPLEbXg==", null, false, null, 1, false, "harrypotter" },
-                    { 5, 0, "39826596-9ecb-41bc-9eb8-f0dfedbff35b", "hermionegranger@email.com", false, false, null, "HERMIONEGRANGER@EMAIL.COM", null, "AQAAAAEAACcQAAAAEKMTbVLrPmva9EowKocAkPHwHpcURL+Ib9xVMccArmpBIs486dwqzMTO1aquGOmxhg==", null, false, null, 1, false, "hermionegranger" },
-                    { 6, 0, "430c2190-b4bb-4d0b-a6ce-ca7400c332ba", "ronweasley@email.com", false, false, null, "RONWEASLEY@EMAIL.COM", null, "AQAAAAEAACcQAAAAENPbZHlzntxhVynxPiUE0L2ZAitiJyhGYWjpkwxo9+4OAlCEiUnkf3FlADMowqWqVg==", null, false, null, 1, false, "ronweasley" },
-                    { 7, 0, "98ed6bfc-5883-448f-bcd1-c4657d110dc5", "albusdumbledore@email.com", false, false, null, "ALBUSDUMBLEDORE@EMAIL.COM", null, "AQAAAAEAACcQAAAAELtgLyFVyTOEoMLK5gtRpuvmQkAD+66uP619uW38rbKKmCn+26mP7vjKUq780z6CEA==", null, false, null, 1, false, "albusdumbledore" },
-                    { 8, 0, "e3485fc0-ca9a-445b-9842-44b01687933b", "lordvoldemort@email.com", false, false, null, "LORDVOLDEMORT@EMAIL.COM", null, "AQAAAAEAACcQAAAAELZDw+tQepv1jsm2C+dThdKkqQ5BfxzNCSGxQcQC2ofruYCkm9vqoGwmZ54Hm5ZYeA==", null, false, null, 1, false, "lordvoldemort" },
-                    { 9, 0, "0a9d721f-6569-4d39-9986-edba64da28e0", "dracomalfoy@email.com", false, false, null, "DRACOMALFOY@EMAIL.COM", null, "AQAAAAEAACcQAAAAEApErfyR53/CvURHO/CKD14mF+LUIolxMB9j+8j2If9nuYzloEohDYud2wUsjBFHuA==", null, false, null, 1, false, "dracomalfoy" },
-                    { 10, 0, "32fd14a9-49ad-4589-aef6-68582bef7274", "siriusblack@email.com", false, false, null, "SIRIUSBLACK@EMAIL.COM", null, "AQAAAAEAACcQAAAAEGDZpaYEX9T/4JguLI+LYz9FRb1O8YByuQTVtdcVhLtEv8wClnOWd9jEQFgDe635Cw==", null, false, null, 1, false, "siriusblack" }
+                    { -1, 0, "2258de75-17f5-4079-b8d6-82fc66295532", "admin@email.com", false, false, null, "ADMIN@EMAIL.COM", null, "AQAAAAEAACcQAAAAEIvRzDSbotYps/ZZGK1PXNP/0DPcpBXDQH2VOlh7O8bqIO3TKIxIaCPHnRg8Fi1myQ==", null, false, null, 1, false, "admin" },
+                    { 1, 0, "aaf5df25-597f-436d-9886-4d5a53903cc4", "adalovelace@email.com", false, false, null, "ADALOVELACE@EMAIL.COM", null, "AQAAAAEAACcQAAAAEO+R/iYbhUK29O4B3hwDiEW9QCZz85W+Ot0iNS6DsnXaHh4Re90Cgl1qb2oYAtZmRA==", null, false, null, 1, false, "adalovelace" },
+                    { 2, 0, "490e8fc3-9783-4caa-b6be-59a8b82c08f5", "gracehopper@email.com", false, false, null, "GRACEHOPPER@EMAIL.COM", null, "AQAAAAEAACcQAAAAEOIHRaxFr/aQVSPVOpBKK/ok9X5D7v3FwaxzH/sb39OLHShgnjTkRq7TYrICRL02DQ==", null, false, null, 1, false, "gracehopper" },
+                    { 3, 0, "87315885-be38-405f-803f-04eff98c0bea", "joanclarke@email.com", false, false, null, "JOANCLARKE@EMAIL.COM", null, "AQAAAAEAACcQAAAAEDLcXlP5eYfTc/kxt7v2WMX+auIYW2/cUs/QaZFbjqtQoZZaasAB4YWfST+XxI7VDA==", null, false, null, 1, false, "joanclarke" },
+                    { 4, 0, "ab65257f-5a1b-4a73-b951-43347dcc5283", "harrypotter@email.com", false, false, null, "HARRYPOTTER@EMAIL.COM", null, "AQAAAAEAACcQAAAAEFgy/n7H+qx4CWl5i4aAOV7eN/v97rXnNPoLDSwuB/p/be6Lz3bbaIKc6YDmwDj29w==", null, false, null, 1, false, "harrypotter" },
+                    { 5, 0, "4cb5204b-d3bb-4b13-a277-2681bdb1a738", "hermionegranger@email.com", false, false, null, "HERMIONEGRANGER@EMAIL.COM", null, "AQAAAAEAACcQAAAAELcUP0J+8CrLzP7AzQi2xB7gkmY1TueWQ21IP3s3SKGpE29N3gJJRwmdq2aXrUKoMg==", null, false, null, 1, false, "hermionegranger" },
+                    { 6, 0, "fb199bfa-638e-4288-9693-1604c6196301", "ronweasley@email.com", false, false, null, "RONWEASLEY@EMAIL.COM", null, "AQAAAAEAACcQAAAAEAemH1Poj2oFkrUES3apcw867uK+wJSTm9ukv3qv5M0ehD0MqQdvQv2pBmmUZCKC5A==", null, false, null, 1, false, "ronweasley" },
+                    { 7, 0, "bdb0aec3-709e-4df9-af68-62bc6c10784b", "albusdumbledore@email.com", false, false, null, "ALBUSDUMBLEDORE@EMAIL.COM", null, "AQAAAAEAACcQAAAAEJDf8rdT6aI+Sn23nZL82OwVdVEtrxspR8wpad+cfVMtDTxKg1wQ0Ug6FaKMcp9PGw==", null, false, null, 1, false, "albusdumbledore" },
+                    { 8, 0, "65d9746f-0159-46dc-b56a-d84740045699", "lordvoldemort@email.com", false, false, null, "LORDVOLDEMORT@EMAIL.COM", null, "AQAAAAEAACcQAAAAEGFkbJZWlqcT8DX69qIhZG0PA071TKZk7hTjqVTE7NkuS/dTdR/KoNFxVjL2vXWRkQ==", null, false, null, 1, false, "lordvoldemort" },
+                    { 9, 0, "9eb80103-0924-46ac-999a-1d24cfccc695", "dracomalfoy@email.com", false, false, null, "DRACOMALFOY@EMAIL.COM", null, "AQAAAAEAACcQAAAAEJokU8P0V/4NJ6duQB/ZRfCxQ3QW1SZT5TCNw+v+mT3RszjlgPOGyZeE34pVDlEbFA==", null, false, null, 1, false, "dracomalfoy" },
+                    { 10, 0, "2a0188fe-ae95-4f35-9b93-1d9cb6323ec6", "siriusblack@email.com", false, false, null, "SIRIUSBLACK@EMAIL.COM", null, "AQAAAAEAACcQAAAAELsZzhD9kpvkkyJr6/sa9kSzKa0D2dDZUTvTsK49OVoffRCyPhMXg25c5bdE7FQ5Qg==", null, false, null, 1, false, "siriusblack" }
                 });
 
             migrationBuilder.InsertData(
@@ -346,6 +401,25 @@ namespace Server.Database.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "LectureEvents",
+                columns: new[] { "Id", "Description", "EndDate", "Name", "OrderNumber", "ProgramId", "StartDate", "Type", "Url", "WorkHours" },
+                values: new object[,]
+                {
+                    { 1, "This course will teach you React.js in a practice-oriented way, using all the latest patterns and best practices you need. You will learn all the key fundamentals as well as advanced concepts and related topics to turn you into a React.js developer.", new DateTime(2022, 9, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), "Udemy - React", 1, 1, new DateTime(2022, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lecture", "https://www.udemy.com/course/react-the-complete-guide-incl-redux/?src=sac&kw=react", 40 },
+                    { 2, "The .NET framework is getting better and better and more important in the web development world nowadays. Almost every request I get for new web development projects is asking for knowledge in .NET, including Web API and Entity Framework Core. So, knowing the fundamentals of back-end web development with .NET can be highly beneficial to your career. And that’s where this course comes in.", new DateTime(2022, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Udemy - .Net Core", 2, 1, new DateTime(2022, 9, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lecture", "https://www.udemy.com/course/net-core-31-web-api-entity-framework-core-jumpstart/", 20 },
+                    { 3, "Goal of the project is to build JAP platform. The main idea is to build a platform where we could have evidence of students, selections and programs.", new DateTime(2022, 9, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), "Test Project - Task", 3, 1, new DateTime(2022, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event", "https://www.udemy.com/", 40 },
+                    { 4, "Edit completed assignment", new DateTime(2022, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "Task Refactoring", 4, 1, new DateTime(2022, 9, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event", "https://www.udemy.com/", 8 },
+                    { 5, "2022 BEST job oriented Software Manual Testing course on real time Project+Interview ques+Resume Prep+ Lifetime Support", new DateTime(2022, 8, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Udemy - Software Testing", 1, 2, new DateTime(2022, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lecture", "https://www.udemy.com/course/learn-software-testing-in-practical-become-a-qa-expert/?src=sac&kw=qa", 10 },
+                    { 6, "Become a Master in Manual Testing QA with Live Testing Projects, AGILE, JIRA, 100+Interview Questions & Lifetime support", new DateTime(2022, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Udemy - Manual Testing", 2, 2, new DateTime(2022, 8, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lecture", "https://www.udemy.com/course/specialize-in-software-testing-with-real-examples-agile-jira/?src=sac&kw=qa", 10 },
+                    { 7, "Goal of the project is to build JAP platform. The main idea is to build a platform where we could have evidence of students, selections and programs.", new DateTime(2022, 8, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Test Project - Task", 3, 2, new DateTime(2022, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event", "https://www.udemy.com/", 40 },
+                    { 8, "Edit completed assignment", new DateTime(2022, 8, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), "Task Refactoring", 4, 2, new DateTime(2022, 8, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event", "https://www.udemy.com/", 8 },
+                    { 9, "Begin DevOps Career As an Absolute Beginner | Linux, AWS, Scripting, Jenkins, Ansible, Docker, K8s, N-Tier Projects", new DateTime(2022, 9, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "DevOps Beginners to Advanced", 1, 3, new DateTime(2022, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lecture", "https://www.udemy.com/course/decodingdevops/?src=sac&kw=devop", 50 },
+                    { 10, "DevOps for Absolute Beginners: Azure DevOps, Docker, Kubernetes, Jenkins, Terraform, Ansible - AWS, Azure & Google Cloud", new DateTime(2022, 10, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "Learn DevOps", 2, 3, new DateTime(2022, 9, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lecture", "https://www.udemy.com/course/devops-with-docker-kubernetes-and-azure-devops/?src=sac&kw=devop", 20 },
+                    { 11, "Goal of the project is to build JAP platform. The main idea is to build a platform where we could have evidence of students, selections and programs.", new DateTime(2022, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Test Project - Task", 3, 3, new DateTime(2022, 10, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event", "https://www.udemy.com/", 40 },
+                    { 12, "Edit completed assignment", new DateTime(2022, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Task Refactoring", 4, 3, new DateTime(2022, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Event", "https://www.udemy.com/", 8 }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Selections",
                 columns: new[] { "Id", "EndAt", "Name", "ProgramId", "SelectionStatusId", "StartAt" },
                 values: new object[,]
@@ -370,6 +444,53 @@ namespace Server.Database.Migrations
                     { 8, "Lord", "Voldemort", 2, 3, 8 },
                     { 9, "Draco", "Malfoy", 3, 3, 9 },
                     { 10, "Sirius", "Black", 1, 4, 10 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "StudentLectureEvents",
+                columns: new[] { "Id", "DoneByCandidate", "LectureEventId", "StatusByCandidate", "StudentId" },
+                values: new object[,]
+                {
+                    { 1, 100, 1, "Done", 1 },
+                    { 2, 80, 2, "In Progress", 1 },
+                    { 3, 10, 3, "Started", 1 },
+                    { 4, 0, 4, "Not Started", 1 },
+                    { 5, 100, 5, "Done", 2 },
+                    { 6, 80, 6, "In Progress", 2 },
+                    { 7, 10, 7, "Started", 2 },
+                    { 8, 0, 8, "Not Started", 2 },
+                    { 9, 100, 9, "Done", 3 },
+                    { 10, 80, 10, "In Progress", 3 },
+                    { 11, 10, 11, "Started", 3 },
+                    { 12, 0, 12, "Not Started", 3 },
+                    { 13, 100, 1, "Done", 4 },
+                    { 14, 80, 2, "In Progress", 4 },
+                    { 15, 10, 3, "Started", 4 },
+                    { 16, 0, 4, "Not Started", 4 },
+                    { 17, 100, 5, "Done", 5 },
+                    { 18, 80, 6, "In Progress", 5 },
+                    { 19, 10, 7, "Started", 5 },
+                    { 20, 0, 8, "Not Started", 5 },
+                    { 21, 100, 9, "Done", 6 },
+                    { 22, 80, 10, "In Progress", 6 },
+                    { 23, 10, 11, "Started", 6 },
+                    { 24, 0, 12, "Not Started", 6 },
+                    { 25, 100, 1, "Done", 7 },
+                    { 26, 80, 2, "In Progress", 7 },
+                    { 27, 10, 3, "Started", 7 },
+                    { 28, 0, 4, "Not Started", 7 },
+                    { 29, 100, 5, "Done", 8 },
+                    { 30, 80, 6, "In Progress", 8 },
+                    { 31, 10, 7, "Started", 8 },
+                    { 32, 0, 8, "Not Started", 8 },
+                    { 33, 100, 9, "Done", 9 },
+                    { 34, 80, 10, "In Progress", 9 },
+                    { 35, 10, 11, "Started", 9 },
+                    { 36, 0, 12, "Not Started", 9 },
+                    { 37, 100, 1, "Done", 10 },
+                    { 38, 80, 2, "In Progress", 10 },
+                    { 39, 10, 3, "Started", 10 },
+                    { 40, 0, 4, "Not Started", 10 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -412,6 +533,11 @@ namespace Server.Database.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_LectureEvents_ProgramId",
+                table: "LectureEvents",
+                column: "ProgramId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Selections_ProgramId",
                 table: "Selections",
                 column: "ProgramId");
@@ -420,6 +546,16 @@ namespace Server.Database.Migrations
                 name: "IX_Selections_SelectionStatusId",
                 table: "Selections",
                 column: "SelectionStatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentLectureEvents_LectureEventId",
+                table: "StudentLectureEvents",
+                column: "LectureEventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentLectureEvents_StudentId",
+                table: "StudentLectureEvents",
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Students_SelectionId",
@@ -459,13 +595,19 @@ namespace Server.Database.Migrations
                 name: "GetSelectionsSuccessRates");
 
             migrationBuilder.DropTable(
-                name: "Students");
+                name: "StudentLectureEvents");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "LectureEvents");
+
+            migrationBuilder.DropTable(
+                name: "Students");
 
             migrationBuilder.DropTable(
                 name: "Selections");

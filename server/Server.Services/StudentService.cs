@@ -25,12 +25,33 @@ namespace Server.Services
             var selection = await _context.Selections
                 .FirstOrDefaultAsync(s => s.Id == addStudent.SelectionId);
 
+            var programId = selection.ProgramId;
+
+            var lectureEvents = await _context.LectureEvents
+                   .Where(le => le.ProgramId == programId)
+                   .OrderBy(le => le.OrderNumber)
+                   .ToListAsync();
+
             var student = new Student();
             _mapper.Map(addStudent, student);
 
             _context.Students.Add(student);
             await _context.SaveChangesAsync();
-            
+
+
+            for (int i = 0; i < lectureEvents.Count; i++)
+            {
+                var sle = new StudentLectureEvents
+                {
+                    StudentId = addStudent.UserId,
+                    LectureEventId = lectureEvents[i].Id,
+                    DoneByCandidate = 0,
+                    StatusByCandidate = "Started"
+                };
+                _context.StudentLectureEvents.Add(sle);
+                await _context.SaveChangesAsync();
+            }
+
             return new ServiceResponse<GetStudentDto>
             {
                 Success = true,

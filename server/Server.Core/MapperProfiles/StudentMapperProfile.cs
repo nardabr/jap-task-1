@@ -12,6 +12,7 @@ namespace Server.Core.MapperProfiles
             CreateMap<StudentStatus, GetStudentStatusDto>();
             CreateMap<AddStudentDto, Student>();
             CreateMap<UpdateStudentDto, Student>();
+            CreateMap<GetStudentLectureEventsDto, StudentLectureEvents>();
         }
     }
 }

@@ -133,6 +133,210 @@ namespace Server.Database.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("Server.Core.Entities.LectureEvent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrderNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProgramId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("WorkHours")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProgramId");
+
+                    b.ToTable("LectureEvents");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "This course will teach you React.js in a practice-oriented way, using all the latest patterns and best practices you need. You will learn all the key fundamentals as well as advanced concepts and related topics to turn you into a React.js developer.",
+                            EndDate = new DateTime(2022, 9, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Udemy - React",
+                            OrderNumber = 1,
+                            ProgramId = 1,
+                            StartDate = new DateTime(2022, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Type = "Lecture",
+                            Url = "https://www.udemy.com/course/react-the-complete-guide-incl-redux/?src=sac&kw=react",
+                            WorkHours = 40
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "The .NET framework is getting better and better and more important in the web development world nowadays. Almost every request I get for new web development projects is asking for knowledge in .NET, including Web API and Entity Framework Core. So, knowing the fundamentals of back-end web development with .NET can be highly beneficial to your career. And that’s where this course comes in.",
+                            EndDate = new DateTime(2022, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Udemy - .Net Core",
+                            OrderNumber = 2,
+                            ProgramId = 1,
+                            StartDate = new DateTime(2022, 9, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Type = "Lecture",
+                            Url = "https://www.udemy.com/course/net-core-31-web-api-entity-framework-core-jumpstart/",
+                            WorkHours = 20
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Goal of the project is to build JAP platform. The main idea is to build a platform where we could have evidence of students, selections and programs.",
+                            EndDate = new DateTime(2022, 9, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Test Project - Task",
+                            OrderNumber = 3,
+                            ProgramId = 1,
+                            StartDate = new DateTime(2022, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Type = "Event",
+                            Url = "https://www.udemy.com/",
+                            WorkHours = 40
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Edit completed assignment",
+                            EndDate = new DateTime(2022, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Task Refactoring",
+                            OrderNumber = 4,
+                            ProgramId = 1,
+                            StartDate = new DateTime(2022, 9, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Type = "Event",
+                            Url = "https://www.udemy.com/",
+                            WorkHours = 8
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "2022 BEST job oriented Software Manual Testing course on real time Project+Interview ques+Resume Prep+ Lifetime Support",
+                            EndDate = new DateTime(2022, 8, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Udemy - Software Testing",
+                            OrderNumber = 1,
+                            ProgramId = 2,
+                            StartDate = new DateTime(2022, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Type = "Lecture",
+                            Url = "https://www.udemy.com/course/learn-software-testing-in-practical-become-a-qa-expert/?src=sac&kw=qa",
+                            WorkHours = 10
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Become a Master in Manual Testing QA with Live Testing Projects, AGILE, JIRA, 100+Interview Questions & Lifetime support",
+                            EndDate = new DateTime(2022, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Udemy - Manual Testing",
+                            OrderNumber = 2,
+                            ProgramId = 2,
+                            StartDate = new DateTime(2022, 8, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Type = "Lecture",
+                            Url = "https://www.udemy.com/course/specialize-in-software-testing-with-real-examples-agile-jira/?src=sac&kw=qa",
+                            WorkHours = 10
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "Goal of the project is to build JAP platform. The main idea is to build a platform where we could have evidence of students, selections and programs.",
+                            EndDate = new DateTime(2022, 8, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Test Project - Task",
+                            OrderNumber = 3,
+                            ProgramId = 2,
+                            StartDate = new DateTime(2022, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Type = "Event",
+                            Url = "https://www.udemy.com/",
+                            WorkHours = 40
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = "Edit completed assignment",
+                            EndDate = new DateTime(2022, 8, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Task Refactoring",
+                            OrderNumber = 4,
+                            ProgramId = 2,
+                            StartDate = new DateTime(2022, 8, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Type = "Event",
+                            Url = "https://www.udemy.com/",
+                            WorkHours = 8
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Description = "Begin DevOps Career As an Absolute Beginner | Linux, AWS, Scripting, Jenkins, Ansible, Docker, K8s, N-Tier Projects",
+                            EndDate = new DateTime(2022, 9, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "DevOps Beginners to Advanced",
+                            OrderNumber = 1,
+                            ProgramId = 3,
+                            StartDate = new DateTime(2022, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Type = "Lecture",
+                            Url = "https://www.udemy.com/course/decodingdevops/?src=sac&kw=devop",
+                            WorkHours = 50
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Description = "DevOps for Absolute Beginners: Azure DevOps, Docker, Kubernetes, Jenkins, Terraform, Ansible - AWS, Azure & Google Cloud",
+                            EndDate = new DateTime(2022, 10, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Learn DevOps",
+                            OrderNumber = 2,
+                            ProgramId = 3,
+                            StartDate = new DateTime(2022, 9, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Type = "Lecture",
+                            Url = "https://www.udemy.com/course/devops-with-docker-kubernetes-and-azure-devops/?src=sac&kw=devop",
+                            WorkHours = 20
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Description = "Goal of the project is to build JAP platform. The main idea is to build a platform where we could have evidence of students, selections and programs.",
+                            EndDate = new DateTime(2022, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Test Project - Task",
+                            OrderNumber = 3,
+                            ProgramId = 3,
+                            StartDate = new DateTime(2022, 10, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Type = "Event",
+                            Url = "https://www.udemy.com/",
+                            WorkHours = 40
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Description = "Edit completed assignment",
+                            EndDate = new DateTime(2022, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Task Refactoring",
+                            OrderNumber = 4,
+                            ProgramId = 3,
+                            StartDate = new DateTime(2022, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Type = "Event",
+                            Url = "https://www.udemy.com/",
+                            WorkHours = 8
+                        });
+                });
+
             modelBuilder.Entity("Server.Core.Entities.Program", b =>
                 {
                     b.Property<int>("Id")
@@ -437,6 +641,358 @@ namespace Server.Database.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Server.Core.Entities.StudentLectureEvents", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("DoneByCandidate")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LectureEventId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StatusByCandidate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LectureEventId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("StudentLectureEvents");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DoneByCandidate = 100,
+                            LectureEventId = 1,
+                            StatusByCandidate = "Done",
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DoneByCandidate = 80,
+                            LectureEventId = 2,
+                            StatusByCandidate = "In Progress",
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DoneByCandidate = 10,
+                            LectureEventId = 3,
+                            StatusByCandidate = "Started",
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DoneByCandidate = 0,
+                            LectureEventId = 4,
+                            StatusByCandidate = "Not Started",
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DoneByCandidate = 100,
+                            LectureEventId = 5,
+                            StatusByCandidate = "Done",
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            DoneByCandidate = 80,
+                            LectureEventId = 6,
+                            StatusByCandidate = "In Progress",
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            DoneByCandidate = 10,
+                            LectureEventId = 7,
+                            StatusByCandidate = "Started",
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            DoneByCandidate = 0,
+                            LectureEventId = 8,
+                            StatusByCandidate = "Not Started",
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            Id = 9,
+                            DoneByCandidate = 100,
+                            LectureEventId = 9,
+                            StatusByCandidate = "Done",
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 10,
+                            DoneByCandidate = 80,
+                            LectureEventId = 10,
+                            StatusByCandidate = "In Progress",
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 11,
+                            DoneByCandidate = 10,
+                            LectureEventId = 11,
+                            StatusByCandidate = "Started",
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 12,
+                            DoneByCandidate = 0,
+                            LectureEventId = 12,
+                            StatusByCandidate = "Not Started",
+                            StudentId = 3
+                        },
+                        new
+                        {
+                            Id = 13,
+                            DoneByCandidate = 100,
+                            LectureEventId = 1,
+                            StatusByCandidate = "Done",
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 14,
+                            DoneByCandidate = 80,
+                            LectureEventId = 2,
+                            StatusByCandidate = "In Progress",
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 15,
+                            DoneByCandidate = 10,
+                            LectureEventId = 3,
+                            StatusByCandidate = "Started",
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 16,
+                            DoneByCandidate = 0,
+                            LectureEventId = 4,
+                            StatusByCandidate = "Not Started",
+                            StudentId = 4
+                        },
+                        new
+                        {
+                            Id = 17,
+                            DoneByCandidate = 100,
+                            LectureEventId = 5,
+                            StatusByCandidate = "Done",
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 18,
+                            DoneByCandidate = 80,
+                            LectureEventId = 6,
+                            StatusByCandidate = "In Progress",
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 19,
+                            DoneByCandidate = 10,
+                            LectureEventId = 7,
+                            StatusByCandidate = "Started",
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 20,
+                            DoneByCandidate = 0,
+                            LectureEventId = 8,
+                            StatusByCandidate = "Not Started",
+                            StudentId = 5
+                        },
+                        new
+                        {
+                            Id = 21,
+                            DoneByCandidate = 100,
+                            LectureEventId = 9,
+                            StatusByCandidate = "Done",
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 22,
+                            DoneByCandidate = 80,
+                            LectureEventId = 10,
+                            StatusByCandidate = "In Progress",
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 23,
+                            DoneByCandidate = 10,
+                            LectureEventId = 11,
+                            StatusByCandidate = "Started",
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 24,
+                            DoneByCandidate = 0,
+                            LectureEventId = 12,
+                            StatusByCandidate = "Not Started",
+                            StudentId = 6
+                        },
+                        new
+                        {
+                            Id = 25,
+                            DoneByCandidate = 100,
+                            LectureEventId = 1,
+                            StatusByCandidate = "Done",
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 26,
+                            DoneByCandidate = 80,
+                            LectureEventId = 2,
+                            StatusByCandidate = "In Progress",
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 27,
+                            DoneByCandidate = 10,
+                            LectureEventId = 3,
+                            StatusByCandidate = "Started",
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 28,
+                            DoneByCandidate = 0,
+                            LectureEventId = 4,
+                            StatusByCandidate = "Not Started",
+                            StudentId = 7
+                        },
+                        new
+                        {
+                            Id = 29,
+                            DoneByCandidate = 100,
+                            LectureEventId = 5,
+                            StatusByCandidate = "Done",
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 30,
+                            DoneByCandidate = 80,
+                            LectureEventId = 6,
+                            StatusByCandidate = "In Progress",
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 31,
+                            DoneByCandidate = 10,
+                            LectureEventId = 7,
+                            StatusByCandidate = "Started",
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 32,
+                            DoneByCandidate = 0,
+                            LectureEventId = 8,
+                            StatusByCandidate = "Not Started",
+                            StudentId = 8
+                        },
+                        new
+                        {
+                            Id = 33,
+                            DoneByCandidate = 100,
+                            LectureEventId = 9,
+                            StatusByCandidate = "Done",
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 34,
+                            DoneByCandidate = 80,
+                            LectureEventId = 10,
+                            StatusByCandidate = "In Progress",
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 35,
+                            DoneByCandidate = 10,
+                            LectureEventId = 11,
+                            StatusByCandidate = "Started",
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 36,
+                            DoneByCandidate = 0,
+                            LectureEventId = 12,
+                            StatusByCandidate = "Not Started",
+                            StudentId = 9
+                        },
+                        new
+                        {
+                            Id = 37,
+                            DoneByCandidate = 100,
+                            LectureEventId = 1,
+                            StatusByCandidate = "Done",
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 38,
+                            DoneByCandidate = 80,
+                            LectureEventId = 2,
+                            StatusByCandidate = "In Progress",
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 39,
+                            DoneByCandidate = 10,
+                            LectureEventId = 3,
+                            StatusByCandidate = "Started",
+                            StudentId = 10
+                        },
+                        new
+                        {
+                            Id = 40,
+                            DoneByCandidate = 0,
+                            LectureEventId = 4,
+                            StatusByCandidate = "Not Started",
+                            StudentId = 10
+                        });
+                });
+
             modelBuilder.Entity("Server.Core.Entities.StudentStatus", b =>
                 {
                     b.Property<int>("Id")
@@ -551,12 +1107,12 @@ namespace Server.Database.Migrations
                         {
                             Id = -1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d3ae3dd7-62c3-4085-a818-bd24f2658d58",
+                            ConcurrencyStamp = "4764ee1b-689c-40f9-b931-a974e75e5df4",
                             Email = "admin@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEI68GBH88Ofm82VRoQk1uS+d6tvmkSnHHG5XlQWUdGIWzIvYqIpqoKWug5IRr/FCSA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECGbvsDlyW/p+BsBDI5KMk+Gm+DzQ962PGgRmLbT6WX26vlDHp0gL64IKXiGxV+S7w==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -566,12 +1122,12 @@ namespace Server.Database.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "965490fa-f4bb-432f-9bb1-bd41c7f82c20",
+                            ConcurrencyStamp = "965dae27-04ae-4bbf-aa37-a228e8d1c5fe",
                             Email = "adalovelace@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADALOVELACE@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKNFBdnSKmR68B+efSXfTv03EQk0GRCkJ5d9cl61424NhJOWvZs36ibR/VgwkP6Lww==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECYOb72TK40gVWhIGJt2/M7wNHCZTOAyAvD3i8bG81L49MJcs0Ci/gS1wveKD1mpNA==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -581,12 +1137,12 @@ namespace Server.Database.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e2f28b45-5140-48e0-bc68-c06ba8c5f307",
+                            ConcurrencyStamp = "538e6c91-2753-4332-8331-fdfae31ecb4f",
                             Email = "gracehopper@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "GRACEHOPPER@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPyWZxq+YA8l03qVtIpn4xzr1Hkcvov7u5kraRfdO9foXAmj1oNT/cR4TeMmWrG37Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHUKnEP3+5OhS9XFOKPvOqPh/mJghlQ4GOjpAsByx9M2z7MBZxyYWZj9bkKblNjo1g==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -596,12 +1152,12 @@ namespace Server.Database.Migrations
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1f808d57-f412-4a97-b81b-9fa4f4113bad",
+                            ConcurrencyStamp = "31a3445b-f071-4b14-9436-b49b2969d957",
                             Email = "joanclarke@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "JOANCLARKE@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIW5nqe3E/Byx7NIG3aq2hbn5CkMClX60cHlrFZdvegkeeakNl6UCoN9hCQoTb+rPg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPfU1Hp+FEJERuDWWL1BwMBFIfbpW64/qyDBFEvXi0X9n1pheVD4ZBgAsOiqp4gN9A==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -611,12 +1167,12 @@ namespace Server.Database.Migrations
                         {
                             Id = 4,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "df2e30f7-2bf7-405e-8a62-8d5661ab68a9",
+                            ConcurrencyStamp = "5b28106c-7f71-46dd-92a5-169d094e65c2",
                             Email = "harrypotter@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "HARRYPOTTER@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMBA0caD/Np99InNI5c2U4K0J/E6cz8KVaO2a8smL85BFOyXOF4WYLORaboCtItVrQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJBS2TkY+unOHof6q6R0Yqlgst3B5Qj0KBhdgJtnzHoYincfQgS0n+hqgSB9YXG6gA==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -626,12 +1182,12 @@ namespace Server.Database.Migrations
                         {
                             Id = 5,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8e896752-29ce-44e5-a171-bb1a91125281",
+                            ConcurrencyStamp = "18026116-c7a6-4f57-838c-415c5ae82b57",
                             Email = "hermionegranger@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "HERMIONEGRANGER@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPOiomNphGzjHh88IY9Y9u4KJgJoHUtPgp3TV1Kfyc5/7yCfFyvL+cYPEZIWu5P/AA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEV3EKSLxXO5kZBxi9cf/0cSirBpbM1wWHA3tmPpreCyOGGeCDp82lLYzQXdyOgBSA==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -641,12 +1197,12 @@ namespace Server.Database.Migrations
                         {
                             Id = 6,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1a8ac55d-7e0a-4fde-b764-b5e6ea52933b",
+                            ConcurrencyStamp = "9b19d016-9188-427a-b076-1c6966eeb20f",
                             Email = "ronweasley@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "RONWEASLEY@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECsxvivMkOx2xFZGiHrpRw/y0h2w1gN0G/lyy3A3SXcsKa747Qgx4iOHKzOFtheHnA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBhEZb2virMPaauHmjyIIu6c9uOcv6WTkAMO19khylSP32i68bs36E0b+uDQBh0CrQ==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -656,12 +1212,12 @@ namespace Server.Database.Migrations
                         {
                             Id = 7,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "09446890-0a11-44d7-9edc-ebd3d3519f29",
+                            ConcurrencyStamp = "87ec9ce2-36f6-44a4-91cf-67fb4a1b1fb8",
                             Email = "albusdumbledore@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ALBUSDUMBLEDORE@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGKQ2BQY20iiiAdGVV+Gfl6H6oqxjKizdslKbZP8Moqm+5IqzItaporrhYhbEmzexg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEGvWoLu0UdbKn79PsXbk+yxuPo1TBx6BzYvw39dwHtKIPQSHNZMn6AGWh4AWo2pCA==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -671,12 +1227,12 @@ namespace Server.Database.Migrations
                         {
                             Id = 8,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c464245c-bf8c-460c-9987-fe5695087b6d",
+                            ConcurrencyStamp = "c03ab856-f239-45f0-9dd8-23d7436ca801",
                             Email = "lordvoldemort@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "LORDVOLDEMORT@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEN14vbYhh3V2vTKr+oQbRoJJh4LOgfNSQ0hPc0MkVRpQVgEEknEt1y4eiAFO51/xwg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEM+dhbjsufxF4rLkqV8Tx2TGQNHkAYgbNHcM65IX5hV3Im7gsuTsfG9QplhPPgDZ/A==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -686,12 +1242,12 @@ namespace Server.Database.Migrations
                         {
                             Id = 9,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "47429b4e-a97a-4c42-94cf-7453ce921800",
+                            ConcurrencyStamp = "9b4b5759-135f-487f-b6fd-4363f23d691c",
                             Email = "dracomalfoy@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "DRACOMALFOY@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEELs98E4Ch0QLVXNBHBllNCTFaQk4eftz26SSkFbPFKSMW4Uk2HpsGjTNJnPQiWpuQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHY2e2uXJ9AxGYudR+of1gzZgp50guPcOup85nidgxOA/C4i24eJdxEHQ5vdr9L54g==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -701,12 +1257,12 @@ namespace Server.Database.Migrations
                         {
                             Id = 10,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2a148e13-9268-4944-8e98-4af2a3967f53",
+                            ConcurrencyStamp = "ef65beae-8cbe-4c96-9d62-3f6ae3d8fedc",
                             Email = "siriusblack@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "SIRIUSBLACK@EMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOCmumKygTfmy8tQZpxlivxTzadGUoYPqAk7xjvxhauwMTAFJ65aIXVHRXYV2slSzQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH3V4Cp8QIIsyJIpTpYyNnntQnzlAD6qZJ/sXyaWCEK8z5jBLfHV9R0kVPzVdEdgCQ==",
                             PhoneNumberConfirmed = false,
                             Status = 1,
                             TwoFactorEnabled = false,
@@ -846,6 +1402,17 @@ namespace Server.Database.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Server.Core.Entities.LectureEvent", b =>
+                {
+                    b.HasOne("Server.Core.Entities.Program", "Program")
+                        .WithMany()
+                        .HasForeignKey("ProgramId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Program");
+                });
+
             modelBuilder.Entity("Server.Core.Entities.Selection", b =>
                 {
                     b.HasOne("Server.Core.Entities.Program", "Program")
@@ -881,6 +1448,25 @@ namespace Server.Database.Migrations
                     b.Navigation("Selection");
 
                     b.Navigation("Status");
+                });
+
+            modelBuilder.Entity("Server.Core.Entities.StudentLectureEvents", b =>
+                {
+                    b.HasOne("Server.Core.Entities.LectureEvent", "LectureEvent")
+                        .WithMany()
+                        .HasForeignKey("LectureEventId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Server.Core.Entities.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("LectureEvent");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Server.Core.Entities.UserRole", b =>
