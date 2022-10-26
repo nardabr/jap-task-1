@@ -83,6 +83,25 @@ export function useStudentApi() {
       .catch((err) => setError(err.response.data.error));
   }
 
+  async function getStudentLectureEvents(studentId, lectureEventId) {
+    let done;
+    let status;
+
+    await axios({
+      method: METHODS.GET,
+      url:
+        PATHS.GET_STUDENT_LECTURE_EVENTS +
+        `?studentId=${studentId}&lectureEventId=${lectureEventId}`,
+    })
+      .then((res) => {
+        done = res.data.data.doneByCandidate;
+        status = res.data.data.statusByCandidate;
+      })
+      .catch((err) => setError(err.response.data.error));
+
+    return { done, status };
+  }
+
   const apiError = error && <ApiError message={error} />;
 
   return {
@@ -92,6 +111,7 @@ export function useStudentApi() {
     getStudentStatuses,
     editStudent,
     addNewStudent,
+    getStudentLectureEvents,
     apiError,
   };
 }

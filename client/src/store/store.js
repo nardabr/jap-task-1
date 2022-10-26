@@ -15,6 +15,9 @@ const store = createSlice({
     pages: 1,
     selectionsSuccessRates: [],
     overallSuccessRate: {},
+    programDetails: [],
+    lectureEventById: {},
+    studentLectureEvent: {},
   },
   reducers: {
     setUser(state, { payload }) {
@@ -52,6 +55,15 @@ const store = createSlice({
     },
     setOverallSuccessRate(state, { payload }) {
       state.overallSuccessRate = payload;
+    },
+    setProgramDetails(state, { payload }) {
+      state.programDetails = payload;
+    },
+    setLectureEventById(state, { payload }) {
+      state.lectureEventById = payload;
+    },
+    setStudentLectureEvent(state, { payload }) {
+      state.studentLectureEvent = payload;
     },
     logout(state) {
       state.user = undefined;

@@ -48,6 +48,7 @@ export default function EditStudent() {
         comments: [...student.comments],
       });
     }
+    console.clear();
   }, [student, studentId]); // eslint-disable-line
 
   // if (!input.selectionId) return null;

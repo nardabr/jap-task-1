@@ -24,7 +24,9 @@ export function useUserApi() {
         dispatch(actions.setUserId(res.data.userId));
         navigate("/homepage");
       })
-      .catch((err) => setError(err.response.data.error));
+      .catch((err) => {
+        setError(err.response.data.error);
+      });
   }
 
   const apiError = error && <ApiError message={error} />;

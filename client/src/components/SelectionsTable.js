@@ -20,7 +20,6 @@ export default function SelectionsTable() {
 
   return (
     <>
-      return (
       <TableContainer component={Paper} className="table-container">
         <Table sx={{ minWidth: 650 }}>
           <TableHead>
@@ -101,12 +100,8 @@ export default function SelectionsTable() {
               </TableRow>
             ))}
           </TableBody>
-          {/* <TableFooter>
-          <TableRow></TableRow>
-        </TableFooter> */}
         </Table>
       </TableContainer>
-      );
     </>
   );
 }

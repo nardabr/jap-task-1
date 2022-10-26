@@ -3,14 +3,15 @@ import { Button, Typography } from "@mui/material";
 export default function ModalDelete({
   onClose,
   deleteModal,
-  deleteStudentHandler,
+  deleteHandler,
+  title,
 }) {
   return (
     <div className="overlay_styles">
       <div className="modal_styles">
         <div>
           <Typography variant="h6" sx={style.title}>
-            Are you sure you want to permanently erase this student?
+            Are you sure you want to permanently erase {title}?
           </Typography>
           &nbsp;
           <Typography align="center">You can't undo this action!</Typography>
@@ -29,7 +30,7 @@ export default function ModalDelete({
             variant="contained"
             fullWidth
             sx={style.button}
-            onClick={deleteStudentHandler}
+            onClick={deleteHandler}
           >
             Delete
           </Button>

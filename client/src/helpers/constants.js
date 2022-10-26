@@ -25,6 +25,13 @@ export const PATHS = {
   ADD_COMMENT: "/api/comment",
   GET_SELECTIONSSUCCESSRATES: "/api/selection/GetSelectionsSuccessRates",
   GET_OVERALLSUCCESSRATE: "/api/selection/GetOverallSuccessRate",
+  ADD_LECTURE_EVENT: "/api/lecture-event",
+  GET_PROGRAM_DETAILS: "/api/program/GetProgramDetails",
+  EDIT_ORDER_NUMBER: "/api/lecture-event",
+  GET_LECTURE_EVENT_BY_ID: "/api/lecture-event",
+  EDIT_LECTURE_EVENT: "/api/lecture-event",
+  DELETE_LECTURE_EVENT: "/api/lecture-event",
+  GET_STUDENT_LECTURE_EVENTS: "/api/student-lecture-events",
 };
 
 export const STUDENTSTABLEHEADER = [
@@ -34,6 +41,32 @@ export const STUDENTSTABLEHEADER = [
   "Program Info",
   "Selections",
 ];
+
+export const LECTUREEVENTTABLEHEADER = [
+  "Type",
+  "Name",
+  "Description",
+  "Url",
+  "Work Hours",
+  "Order Number",
+  "Start Date",
+  "End Date",
+];
+
+export const STUDENTLECTUREEVENTTABLEHEADER = [
+  "Type",
+  "Name",
+  "Description",
+  "Url",
+  "Work Hours",
+  "Order Number",
+  "Start Date",
+  "End Date",
+  "Done",
+  "Status",
+];
+
+export const data = ["Lecture", "Event"];
 
 export const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -56,6 +89,46 @@ export const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   },
 }));
+
+export const StyledTableCellProgram = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: "#7d8597",
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+    maxWidth: 0,
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    borderRight: "1px solid rgba(0,0,0,0.3)",
+    "&:nth-of-type(n+10)": {
+      borderRight: 0,
+      borderLeft: 0,
+    },
+    "&:nth-of-type(10)": {
+      cursor: "pointer",
+    },
+  },
+}));
+
+export const cellWidthProgram = {
+  maxWidth: "15px",
+  borderRight: "1px solid rgba(0,0,0,0.3)",
+  "&:nth-of-type(n+10)": {
+    borderRight: 0,
+    borderLeft: 0,
+  },
+};
+
+export const cellWidthDnD = {
+  maxWidth: "10px",
+  borderRight: "1px solid rgba(0,0,0,0.3)",
+  // "&:nth-of-type(n+10)": {
+  //   borderRight: 0,
+  //   borderLeft: 0,
+  // },
+};
 
 export const cellWidth = {
   maxWidth: "15px",

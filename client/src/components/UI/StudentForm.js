@@ -17,7 +17,7 @@ export default function StudentForm({
   const selections = useSelector((s) => s.store.selections);
   const studentStatuses = useSelector((s) => s.store.studentStatuses);
   const user = useSelector((s) => s.store.user);
-
+  
   return (
     <div>
       <InputField
@@ -55,7 +55,19 @@ export default function StudentForm({
         />
       )}
       &nbsp;
-      {user === "admin" && (
+      {user === "admin" && view && (
+        <InputField
+          disabled={view}
+          label="Status"
+          name="status"
+          value={input.status.name}
+          onChange={onChange}
+          error={error.status.name}
+          sx={styleTextField}
+          onBlur={() => lengthValidation("status", 1, 999)}
+        />
+      )}
+      {user === "admin" && !view && (
         <InputField
           disabled={view}
           label="Status"
@@ -73,9 +85,20 @@ export default function StudentForm({
         </InputField>
       )}
       &nbsp;
-      {user === "admin" && (
+      {user === "admin" && view && (
         <InputField
           disabled={view}
+          label="Selection"
+          name="selection"
+          value={input.selection.name}
+          onChange={onChange}
+          error={error.selection.name}
+          sx={styleTextField}
+          onBlur={() => lengthValidation("selection", 1, 999)}
+        />
+      )}
+      {user === "admin" && !view && (
+        <InputField
           label="Selection"
           name="selectionId"
           value={input.selectionId}

@@ -90,9 +90,11 @@ export default function Navbar() {
               onClose={handleClose}
               onClick={handleClose}
             >
-              <MenuItem onClick={allProgramsNavigate}>All Programs</MenuItem>
               {user !== "student" && (
                 <div>
+                  <MenuItem onClick={allProgramsNavigate}>
+                    All Programs
+                  </MenuItem>
                   <MenuItem onClick={allSelectionsNavigate}>
                     Selections
                   </MenuItem>

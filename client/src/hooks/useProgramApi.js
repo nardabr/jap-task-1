@@ -22,10 +22,24 @@ export function useProgramApi() {
       .catch((err) => setError(err.response.data.error));
   }
 
+  async function getProgramDetails(programId) {
+    await axios({
+      method: METHODS.GET,
+      url: PATHS.GET_PROGRAM_DETAILS + `?programId=${programId}`,
+    })
+      .then((res) => {
+        dispatch(actions.setProgramDetails(res.data.data));
+      })
+      .catch((err) => {
+        setError(err.response.data.error);
+      });
+  }
+
   const apiError = error && <ApiError message={error} />;
 
   return {
     getAllPrograms,
+    getProgramDetails,
     apiError,
   };
 }

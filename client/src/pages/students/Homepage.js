@@ -67,7 +67,8 @@ export default function Homepage() {
         <ModalDelete
           onClose={() => setDeleteModal(false)}
           deleteModal={deleteModal}
-          deleteStudentHandler={deleteStudentHandler}
+          deleteHandler={deleteStudentHandler}
+          title="this student"
         />
       )}
       {user === "admin" ? (

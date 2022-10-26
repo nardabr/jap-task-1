@@ -1,14 +1,24 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { useProgramApi } from "../../hooks/useProgramApi";
 
-import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  Typography,
+  CardActions,
+  Button,
+} from "@mui/material";
 import "../../assets/css/allPrograms.css";
 
 export default function AllPrograms() {
+  const navigate = useNavigate();
   const { getAllPrograms } = useProgramApi();
   const allPrograms = useSelector((s) => s.store.allPrograms);
+  const user = useSelector((s) => s.store.user);
 
   function getAllProgramsHandler() {
     getAllPrograms();
@@ -22,7 +32,9 @@ export default function AllPrograms() {
     <div className="all-programs_container">
       {allPrograms.map((program, i) => (
         <Card key={i} className="all-programs-card">
-          <CardActionArea>
+          <CardActionArea
+            onClick={() => navigate(`/programs/details/${program.id}`)}
+          >
             <CardContent>
               <Typography
                 gutterBottom
@@ -37,6 +49,18 @@ export default function AllPrograms() {
               </Typography>
             </CardContent>
           </CardActionArea>
+          {user === "admin" && (
+            <CardActions>
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={() => navigate(`/lecture-event/add-new/${program.id}`)}
+              >
+                Add Program / Event
+              </Button>
+            </CardActions>
+          )}
         </Card>
       ))}
     </div>

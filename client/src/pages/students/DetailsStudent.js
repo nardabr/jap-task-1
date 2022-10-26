@@ -1,14 +1,17 @@
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useStudentApi } from "../../hooks/useStudentApi";
 import { useFormFields } from "../../hooks/useFormFields";
 import CardWrapper from "../../components/UI/CardWrapper";
 import StudentForm from "../../components/UI/StudentForm";
+import { Button } from "@mui/material";
 
 export default function DetailsStudent() {
   const { getStudent } = useStudentApi();
+  const navigate = useNavigate();
   const [input, error, onChange, lengthValidation, setInput] = useFormFields({
     firstName: "",
     lastName: "",
@@ -63,6 +66,15 @@ export default function DetailsStudent() {
         lengthValidation={lengthValidation}
         error={error}
       />
+      <Button
+        variant="contained"
+        fullWidth
+        onClick={() =>
+          navigate(`/programs/details/${student.selection.program.id}`)
+        }
+      >
+        See Lectures and Events
+      </Button>
     </CardWrapper>
   );
 }
